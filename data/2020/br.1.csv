@@ -1,0 +1,381 @@
+Date,Team 1,FT,HT,Team 2
+Sat Aug 8 2020,Fortaleza,0-2,?,Athletico-PR
+Sat Aug 8 2020,Coritiba,0-1,?,Internacional
+Sat Aug 8 2020,Sport Recife,3-2,?,Ceara
+Sun Aug 9 2020,Flamengo RJ,0-1,?,Atletico-MG
+Sun Aug 9 2020,Santos,1-1,?,Bragantino
+Sun Aug 9 2020,Gremio,1-0,?,Fluminense
+Wed Aug 12 2020,Athletico-PR,2-1,?,Goias
+Wed Aug 12 2020,Atletico-MG,3-2,?,Corinthians
+Wed Aug 12 2020,Bragantino,1-1,?,Botafogo RJ
+Wed Aug 12 2020,Atletico GO,3-0,?,Flamengo RJ
+Wed Aug 12 2020,Bahia,1-0,?,Coritiba
+Wed Aug 12 2020,Ceara,1-1,?,Gremio
+Wed Aug 12 2020,Fluminense,1-1,?,Palmeiras
+Thu Aug 13 2020,Sao Paulo,1-0,?,Fortaleza
+Thu Aug 13 2020,Internacional,2-0,?,Santos
+Thu Aug 13 2020,Vasco,2-0,?,Sport Recife
+Sat Aug 15 2020,Gremio,0-0,?,Corinthians
+Sat Aug 15 2020,Coritiba,0-1,?,Flamengo RJ
+Sat Aug 15 2020,Palmeiras,1-1,?,Goias
+Sun Aug 16 2020,Atletico-MG,2-0,?,Ceara
+Sun Aug 16 2020,Bahia,2-1,?,Bragantino
+Sun Aug 16 2020,Vasco,2-1,?,Sao Paulo
+Sun Aug 16 2020,Fluminense,2-1,?,Internacional
+Sun Aug 16 2020,Atletico GO,1-1,?,Sport Recife
+Sun Aug 16 2020,Fortaleza,0-0,?,Botafogo RJ
+Sun Aug 16 2020,Santos,3-1,?,Athletico-PR
+Wed Aug 19 2020,Bragantino,2-1,?,Fluminense
+Wed Aug 19 2020,Flamengo RJ,1-1,?,Gremio
+Wed Aug 19 2020,Athletico-PR,0-1,?,Palmeiras
+Wed Aug 19 2020,Goias,1-3,?,Fortaleza
+Wed Aug 19 2020,Internacional,3-0,?,Atletico GO
+Wed Aug 19 2020,Botafogo RJ,2-1,?,Atletico-MG
+Wed Aug 19 2020,Corinthians,3-1,?,Coritiba
+Thu Aug 20 2020,Sport Recife,0-1,?,Santos
+Thu Aug 20 2020,Ceara,0-3,?,Vasco
+Thu Aug 20 2020,Sao Paulo,1-1,?,Bahia
+Sat Aug 22 2020,Athletico-PR,0-1,?,Fluminense
+Sat Aug 22 2020,Internacional,1-0,?,Atletico-MG
+Sat Aug 22 2020,Goias,2-0,?,Atletico GO
+Sun Aug 23 2020,Flamengo RJ,1-1,?,Botafogo RJ
+Sun Aug 23 2020,Bragantino,1-2,?,Coritiba
+Sun Aug 23 2020,Palmeiras,2-1,?,Santos
+Sun Aug 23 2020,Vasco,0-0,?,Gremio
+Sun Aug 23 2020,Sport Recife,0-1,?,Sao Paulo
+Sun Aug 23 2020,Ceara,2-0,?,Bahia
+Wed Aug 26 2020,Sao Paulo,1-0,?,Athletico-PR
+Wed Aug 26 2020,Corinthians,1-1,?,Fortaleza
+Sat Aug 29 2020,Botafogo RJ,0-2,?,Internacional
+Sat Aug 29 2020,Bahia,1-1,?,Palmeiras
+Sat Aug 29 2020,Fluminense,2-1,?,Vasco
+Sat Aug 29 2020,Fortaleza,3-0,?,Bragantino
+Sun Aug 30 2020,Sao Paulo,2-1,?,Corinthians
+Sun Aug 30 2020,Coritiba,1-0,?,Sport Recife
+Sun Aug 30 2020,Santos,0-1,?,Flamengo RJ
+Sun Aug 30 2020,Atletico GO,0-2,?,Ceara
+Wed Sep 2 2020,Ceara,1-0,?,Fortaleza
+Wed Sep 2 2020,Fluminense,1-1,?,Atletico GO
+Wed Sep 2 2020,Goias,1-2,?,Corinthians
+Wed Sep 2 2020,Athletico-PR,1-1,?,Bragantino
+Wed Sep 2 2020,Bahia,3-5,?,Flamengo RJ
+Wed Sep 2 2020,Botafogo RJ,0-0,?,Coritiba
+Wed Sep 2 2020,Palmeiras,1-1,?,Internacional
+Wed Sep 2 2020,Santos,2-2,?,Vasco
+Thu Sep 3 2020,Gremio,1-2,?,Sport Recife
+Thu Sep 3 2020,Atletico-MG,3-0,?,Sao Paulo
+Sat Sep 5 2020,Flamengo RJ,2-1,?,Fortaleza
+Sat Sep 5 2020,Corinthians,2-2,?,Botafogo RJ
+Sat Sep 5 2020,Ceara,0-1,?,Santos
+Sun Sep 6 2020,Bragantino,1-2,?,Palmeiras
+Sun Sep 6 2020,Internacional,2-2,?,Bahia
+Sun Sep 6 2020,Sao Paulo,3-1,?,Fluminense
+Sun Sep 6 2020,Vasco,1-0,?,Athletico-PR
+Sun Sep 6 2020,Atletico GO,1-1,?,Gremio
+Sun Sep 6 2020,Coritiba,0-1,?,Atletico-MG
+Sun Sep 6 2020,Sport Recife,2-1,?,Goias
+Wed Sep 9 2020,Athletico-PR,1-1,?,Botafogo RJ
+Wed Sep 9 2020,Fortaleza,1-0,?,Sport Recife
+Wed Sep 9 2020,Goias,3-3,?,Coritiba
+Wed Sep 9 2020,Sao Paulo,1-1,?,Bragantino
+Wed Sep 9 2020,Fluminense,1-2,?,Flamengo RJ
+Wed Sep 9 2020,Santos,3-1,?,Atletico-MG
+Thu Sep 10 2020,Bahia,0-2,?,Gremio
+Thu Sep 10 2020,Corinthians,0-2,?,Palmeiras
+Thu Sep 10 2020,Internacional,2-0,?,Ceara
+Thu Sep 10 2020,Vasco,1-2,?,Atletico GO
+Sat Sep 12 2020,Athletico-PR,1-0,?,Coritiba
+Sat Sep 12 2020,Santos,2-2,?,Sao Paulo
+Sun Sep 13 2020,Fluminense,2-1,?,Corinthians
+Sun Sep 13 2020,Gremio,1-1,?,Fortaleza
+Sun Sep 13 2020,Atletico-MG,2-1,?,Bragantino
+Sun Sep 13 2020,Bahia,0-1,?,Atletico GO
+Sun Sep 13 2020,Ceara,2-0,?,Flamengo RJ
+Sun Sep 13 2020,Goias,1-0,?,Internacional
+Sun Sep 13 2020,Palmeiras,2-2,?,Sport Recife
+Sun Sep 13 2020,Botafogo RJ,2-3,?,Vasco
+Wed Sep 16 2020,Corinthians,3-2,?,Bahia
+Sat Sep 19 2020,Bragantino,4-2,?,Ceara
+Sat Sep 19 2020,Fortaleza,1-0,?,Internacional
+Sat Sep 19 2020,Atletico GO,3-4,?,Atletico-MG
+Sun Sep 20 2020,Coritiba,1-0,?,Vasco
+Sun Sep 20 2020,Gremio,1-1,?,Palmeiras
+Sun Sep 20 2020,Botafogo RJ,0-0,?,Santos
+Sun Sep 20 2020,Sport Recife,1-0,?,Fluminense
+Wed Sep 23 2020,Sport Recife,1-0,?,Corinthians
+Sat Sep 26 2020,Athletico-PR,1-0,?,Bahia
+Sat Sep 26 2020,Internacional,1-1,?,Sao Paulo
+Sat Sep 26 2020,Atletico-MG,3-1,?,Gremio
+Sun Sep 27 2020,Vasco,1-1,?,Bragantino
+Sun Sep 27 2020,Palmeiras,1-1,?,Flamengo RJ
+Sun Sep 27 2020,Atletico GO,1-1,?,Botafogo RJ
+Sun Sep 27 2020,Ceara,2-2,?,Goias
+Sun Sep 27 2020,Santos,1-1,?,Fortaleza
+Mon Sep 28 2020,Fluminense,4-0,?,Coritiba
+Wed Sep 30 2020,Botafogo RJ,1-2,?,Bahia
+Wed Sep 30 2020,Corinthians,0-0,?,Atletico GO
+Sat Oct 3 2020,Gremio,1-1,?,Internacional
+Sat Oct 3 2020,Palmeiras,2-1,?,Ceara
+Sat Oct 3 2020,Bragantino,0-0,?,Corinthians
+Sun Oct 4 2020,Botafogo RJ,1-1,?,Fluminense
+Sun Oct 4 2020,Coritiba,1-1,?,Sao Paulo
+Sun Oct 4 2020,Flamengo RJ,3-1,?,Athletico-PR
+Sun Oct 4 2020,Bahia,1-2,?,Sport Recife
+Sun Oct 4 2020,Fortaleza,0-0,?,Atletico GO
+Sun Oct 4 2020,Goias,2-3,?,Santos
+Sun Oct 4 2020,Atletico-MG,4-1,?,Vasco
+Wed Oct 7 2020,Corinthians,1-1,?,Santos
+Wed Oct 7 2020,Bahia,3-0,?,Vasco
+Wed Oct 7 2020,Flamengo RJ,3-0,?,Sport Recife
+Wed Oct 7 2020,Gremio,2-1,?,Coritiba
+Wed Oct 7 2020,Goias,2-4,?,Fluminense
+Wed Oct 7 2020,Sao Paulo,3-0,?,Atletico GO
+Wed Oct 7 2020,Botafogo RJ,2-1,?,Palmeiras
+Wed Oct 7 2020,Fortaleza,2-1,?,Atletico-MG
+Thu Oct 8 2020,Athletico-PR,0-0,?,Ceara
+Thu Oct 8 2020,Bragantino,0-2,?,Internacional
+Sat Oct 10 2020,Vasco,1-2,?,Flamengo RJ
+Sat Oct 10 2020,Coritiba,0-0,?,Fortaleza
+Sat Oct 10 2020,Palmeiras,0-2,?,Sao Paulo
+Sat Oct 10 2020,Atletico-MG,3-0,?,Goias
+Sun Oct 11 2020,Fluminense,1-0,?,Bahia
+Sun Oct 11 2020,Santos,2-1,?,Gremio
+Sun Oct 11 2020,Atletico GO,2-1,?,Bragantino
+Sun Oct 11 2020,Sport Recife,1-2,?,Botafogo RJ
+Sun Oct 11 2020,Ceara,2-1,?,Corinthians
+Sun Oct 11 2020,Internacional,2-1,?,Athletico-PR
+Tue Oct 13 2020,Flamengo RJ,2-1,?,Goias
+Wed Oct 14 2020,Palmeiras,1-3,?,Coritiba
+Wed Oct 14 2020,Gremio,3-1,?,Botafogo RJ
+Wed Oct 14 2020,Santos,0-1,?,Atletico GO
+Wed Oct 14 2020,Athletico-PR,0-1,?,Corinthians
+Wed Oct 14 2020,Atletico-MG,1-1,?,Fluminense
+Wed Oct 14 2020,Sport Recife,3-5,?,Internacional
+Thu Oct 15 2020,Flamengo RJ,1-1,?,Bragantino
+Fri Oct 16 2020,Goias,1-1,?,Bahia
+Sat Oct 17 2020,Atletico GO,1-1,?,Athletico-PR
+Sat Oct 17 2020,Coritiba,1-2,?,Santos
+Sat Oct 17 2020,Fluminense,2-2,?,Ceara
+Sat Oct 17 2020,Sao Paulo,0-0,?,Gremio
+Sun Oct 18 2020,Corinthians,1-5,?,Flamengo RJ
+Sun Oct 18 2020,Internacional,2-0,?,Vasco
+Sun Oct 18 2020,Bragantino,2-0,?,Sport Recife
+Sun Oct 18 2020,Fortaleza,2-0,?,Palmeiras
+Mon Oct 19 2020,Bahia,3-1,?,Atletico-MG
+Mon Oct 19 2020,Botafogo RJ,0-0,?,Goias
+Wed Oct 21 2020,Vasco,1-2,?,Corinthians
+Sat Oct 24 2020,Bragantino,2-0,?,Goias
+Sat Oct 24 2020,Ceara,2-1,?,Coritiba
+Sat Oct 24 2020,Atletico-MG,0-0,?,Sport Recife
+Sun Oct 25 2020,Atletico GO,0-3,?,Palmeiras
+Sun Oct 25 2020,Fluminense,3-1,?,Santos
+Sun Oct 25 2020,Athletico-PR,1-2,?,Gremio
+Sun Oct 25 2020,Internacional,2-2,?,Flamengo RJ
+Sat Oct 31 2020,Botafogo RJ,2-2,?,Ceara
+Sat Oct 31 2020,Corinthians,1-0,?,Internacional
+Sat Oct 31 2020,Coritiba,1-0,?,Atletico GO
+Sat Oct 31 2020,Fortaleza,0-1,?,Fluminense
+Sun Nov 1 2020,Flamengo RJ,1-4,?,Sao Paulo
+Sun Nov 1 2020,Sport Recife,1-0,?,Athletico-PR
+Sun Nov 1 2020,Santos,3-1,?,Bahia
+Sun Nov 1 2020,Goias,1-1,?,Vasco
+Mon Nov 2 2020,Palmeiras,3-0,?,Atletico-MG
+Mon Nov 2 2020,Gremio,2-1,?,Bragantino
+Sat Nov 7 2020,Athletico-PR,2-1,?,Fortaleza
+Sat Nov 7 2020,Sao Paulo,2-1,?,Goias
+Sat Nov 7 2020,Atletico GO,1-1,?,Corinthians
+Sun Nov 8 2020,Internacional,2-2,?,Coritiba
+Sun Nov 8 2020,Vasco,0-1,?,Palmeiras
+Sun Nov 8 2020,Atletico-MG,4-0,?,Flamengo RJ
+Sun Nov 8 2020,Bahia,1-0,?,Botafogo RJ
+Sun Nov 8 2020,Bragantino,1-1,?,Santos
+Sun Nov 8 2020,Ceara,0-0,?,Sport Recife
+Sun Nov 8 2020,Fluminense,0-1,?,Gremio
+Wed Nov 11 2020,Bahia,2-1,?,Fortaleza
+Sat Nov 14 2020,Santos,2-0,?,Internacional
+Sat Nov 14 2020,Sport Recife,0-2,?,Vasco
+Sat Nov 14 2020,Goias,0-1,?,Athletico-PR
+Sat Nov 14 2020,Corinthians,1-2,?,Atletico-MG
+Sat Nov 14 2020,Fortaleza,2-3,?,Sao Paulo
+Sat Nov 14 2020,Gremio,4-2,?,Ceara
+Sat Nov 14 2020,Flamengo RJ,1-1,?,Atletico GO
+Sat Nov 14 2020,Palmeiras,2-0,?,Fluminense
+Mon Nov 16 2020,Coritiba,1-2,?,Bahia
+Mon Nov 16 2020,Botafogo RJ,1-2,?,Bragantino
+Wed Nov 18 2020,Atletico-MG,0-2,?,Athletico-PR
+Thu Nov 19 2020,Vasco,0-0,?,Fortaleza
+Fri Nov 20 2020,Bragantino,4-0,?,Bahia
+Sat Nov 21 2020,Athletico-PR,1-0,?,Santos
+Sat Nov 21 2020,Flamengo RJ,3-1,?,Coritiba
+Sat Nov 21 2020,Goias,1-0,?,Palmeiras
+Sun Nov 22 2020,Ceara,2-2,?,Atletico-MG
+Sun Nov 22 2020,Sao Paulo,1-1,?,Vasco
+Sun Nov 22 2020,Botafogo RJ,1-2,?,Fortaleza
+Sun Nov 22 2020,Internacional,1-2,?,Fluminense
+Sun Nov 22 2020,Corinthians,0-0,?,Gremio
+Mon Nov 23 2020,Sport Recife,0-1,?,Atletico GO
+Wed Nov 25 2020,Ceara,1-1,?,Sao Paulo
+Wed Nov 25 2020,Atletico-MG,2-1,?,Botafogo RJ
+Wed Nov 25 2020,Coritiba,0-1,?,Corinthians
+Thu Nov 26 2020,Fortaleza,1-1,?,Goias
+Sat Nov 28 2020,Palmeiras,3-0,?,Athletico-PR
+Sat Nov 28 2020,Santos,4-2,?,Sport Recife
+Sat Nov 28 2020,Bahia,1-3,?,Sao Paulo
+Sat Nov 28 2020,Atletico GO,0-0,?,Internacional
+Mon Nov 30 2020,Gremio,2-1,?,Goias
+Mon Nov 30 2020,Vasco,1-4,?,Ceara
+Mon Nov 30 2020,Fluminense,0-0,?,Bragantino
+Wed Dec 2 2020,Fortaleza,0-0,?,Corinthians
+Thu Dec 3 2020,Goias,0-3,?,Sao Paulo
+Sat Dec 5 2020,Botafogo RJ,0-1,?,Flamengo RJ
+Sat Dec 5 2020,Santos,2-2,?,Palmeiras
+Sat Dec 5 2020,Bahia,0-2,?,Ceara
+Sat Dec 5 2020,Fluminense,3-1,?,Athletico-PR
+Sat Dec 5 2020,Coritiba,0-0,?,Bragantino
+Sun Dec 6 2020,Gremio,4-0,?,Vasco
+Sun Dec 6 2020,Sao Paulo,1-0,?,Sport Recife
+Sun Dec 6 2020,Atletico-MG,2-2,?,Internacional
+Mon Dec 7 2020,Atletico GO,0-1,?,Goias
+Wed Dec 9 2020,Sao Paulo,4-0,?,Botafogo RJ
+Sat Dec 12 2020,Athletico-PR,0-1,?,Atletico-MG
+Sat Dec 12 2020,Bragantino,2-1,?,Fortaleza
+Sat Dec 12 2020,Internacional,2-1,?,Botafogo RJ
+Sat Dec 12 2020,Palmeiras,3-0,?,Bahia
+Sat Dec 12 2020,Ceara,1-2,?,Atletico GO
+Sat Dec 12 2020,Goias,0-0,?,Gremio
+Sun Dec 13 2020,Flamengo RJ,4-1,?,Santos
+Sun Dec 13 2020,Corinthians,1-0,?,Sao Paulo
+Sun Dec 13 2020,Sport Recife,1-0,?,Coritiba
+Sun Dec 13 2020,Vasco,1-1,?,Fluminense
+Wed Dec 16 2020,Atletico GO,2-1,?,Fluminense
+Wed Dec 16 2020,Sao Paulo,3-0,?,Atletico-MG
+Sat Dec 19 2020,Sport Recife,1-1,?,Gremio
+Sat Dec 19 2020,Coritiba,1-2,?,Botafogo RJ
+Sat Dec 19 2020,Internacional,2-0,?,Palmeiras
+Sun Dec 20 2020,Bragantino,0-1,?,Athletico-PR
+Sun Dec 20 2020,Vasco,1-0,?,Santos
+Sun Dec 20 2020,Flamengo RJ,4-3,?,Bahia
+Sun Dec 20 2020,Fortaleza,0-2,?,Ceara
+Mon Dec 21 2020,Corinthians,2-1,?,Goias
+Sat Dec 26 2020,Atletico-MG,2-0,?,Coritiba
+Sat Dec 26 2020,Fortaleza,0-0,?,Flamengo RJ
+Sat Dec 26 2020,Goias,1-0,?,Sport Recife
+Sat Dec 26 2020,Fluminense,1-2,?,Sao Paulo
+Sun Dec 27 2020,Bahia,1-2,?,Internacional
+Sun Dec 27 2020,Botafogo RJ,0-2,?,Corinthians
+Sun Dec 27 2020,Athletico-PR,3-0,?,Vasco
+Sun Dec 27 2020,Palmeiras,1-0,?,Bragantino
+Sun Dec 27 2020,Santos,1-1,?,Ceara
+Sun Dec 27 2020,Gremio,2-1,?,Atletico GO
+Wed Jan 6 2021,Botafogo RJ,0-2,?,Athletico-PR
+Wed Jan 6 2021,Gremio,2-1,?,Bahia
+Wed Jan 6 2021,Coritiba,1-2,?,Goias
+Wed Jan 6 2021,Sport Recife,1-0,?,Fortaleza
+Wed Jan 6 2021,Bragantino,4-2,?,Sao Paulo
+Wed Jan 6 2021,Flamengo RJ,1-2,?,Fluminense
+Thu Jan 7 2021,Ceara,0-2,?,Internacional
+Thu Jan 7 2021,Atletico GO,0-0,?,Vasco
+Sat Jan 9 2021,Coritiba,0-0,?,Athletico-PR
+Sat Jan 9 2021,Sport Recife,0-1,?,Palmeiras
+Sat Jan 9 2021,Fortaleza,0-0,?,Gremio
+Sun Jan 10 2021,Flamengo RJ,0-2,?,Ceara
+Sun Jan 10 2021,Sao Paulo,0-1,?,Santos
+Sun Jan 10 2021,Atletico GO,1-1,?,Bahia
+Sun Jan 10 2021,Internacional,1-0,?,Goias
+Sun Jan 10 2021,Vasco,3-0,?,Botafogo RJ
+Mon Jan 11 2021,Bragantino,2-2,?,Atletico-MG
+Wed Jan 13 2021,Corinthians,5-0,?,Fluminense
+Fri Jan 15 2021,Palmeiras,1-1,?,Gremio
+Sat Jan 16 2021,Fluminense,1-0,?,Sport Recife
+Sat Jan 16 2021,Vasco,0-1,?,Coritiba
+Sun Jan 17 2021,Athletico-PR,1-1,?,Sao Paulo
+Sun Jan 17 2021,Santos,2-1,?,Botafogo RJ
+Sun Jan 17 2021,Atletico-MG,3-1,?,Atletico GO
+Sun Jan 17 2021,Ceara,1-2,?,Bragantino
+Sun Jan 17 2021,Internacional,4-2,?,Fortaleza
+Mon Jan 18 2021,Palmeiras,4-0,?,Corinthians
+Mon Jan 18 2021,Goias,0-3,?,Flamengo RJ
+Wed Jan 20 2021,Botafogo RJ,1-3,?,Atletico GO
+Wed Jan 20 2021,Bahia,1-0,?,Athletico-PR
+Wed Jan 20 2021,Gremio,1-1,?,Atletico-MG
+Wed Jan 20 2021,Coritiba,3-3,?,Fluminense
+Wed Jan 20 2021,Bragantino,4-1,?,Vasco
+Wed Jan 20 2021,Sao Paulo,1-5,?,Internacional
+Thu Jan 21 2021,Flamengo RJ,2-0,?,Palmeiras
+Thu Jan 21 2021,Fortaleza,2-0,?,Santos
+Thu Jan 21 2021,Goias,0-4,?,Ceara
+Thu Jan 21 2021,Corinthians,3-0,?,Sport Recife
+Sat Jan 23 2021,Sao Paulo,1-1,?,Coritiba
+Sat Jan 23 2021,Vasco,3-2,?,Atletico-MG
+Sun Jan 24 2021,Athletico-PR,2-1,?,Flamengo RJ
+Sun Jan 24 2021,Ceara,2-1,?,Palmeiras
+Sun Jan 24 2021,Internacional,2-1,?,Gremio
+Sun Jan 24 2021,Atletico GO,2-0,?,Fortaleza
+Sun Jan 24 2021,Santos,3-4,?,Goias
+Sun Jan 24 2021,Sport Recife,2-0,?,Bahia
+Sun Jan 24 2021,Fluminense,2-0,?,Botafogo RJ
+Mon Jan 25 2021,Corinthians,0-2,?,Bragantino
+Tue Jan 26 2021,Atletico-MG,2-0,?,Santos
+Tue Jan 26 2021,Palmeiras,1-1,?,Vasco
+Thu Jan 28 2021,Bahia,2-1,?,Corinthians
+Thu Jan 28 2021,Gremio,2-4,?,Flamengo RJ
+Sun Jan 31 2021,Atletico GO,2-1,?,Sao Paulo
+Sun Jan 31 2021,Ceara,0-2,?,Athletico-PR
+Sun Jan 31 2021,Coritiba,1-1,?,Gremio
+Sun Jan 31 2021,Vasco,0-0,?,Bahia
+Sun Jan 31 2021,Atletico-MG,2-0,?,Fortaleza
+Sun Jan 31 2021,Internacional,2-1,?,Bragantino
+Sun Jan 31 2021,Fluminense,3-0,?,Goias
+Mon Feb 1 2021,Sport Recife,0-3,?,Flamengo RJ
+Tue Feb 2 2021,Palmeiras,1-1,?,Botafogo RJ
+Wed Feb 3 2021,Gremio,3-3,?,Santos
+Wed Feb 3 2021,Bragantino,2-0,?,Atletico GO
+Wed Feb 3 2021,Bahia,0-1,?,Fluminense
+Wed Feb 3 2021,Corinthians,2-1,?,Ceara
+Wed Feb 3 2021,Goias,1-0,?,Atletico-MG
+Thu Feb 4 2021,Fortaleza,3-1,?,Coritiba
+Thu Feb 4 2021,Athletico-PR,0-0,?,Internacional
+Thu Feb 4 2021,Flamengo RJ,2-0,?,Vasco
+Fri Feb 5 2021,Botafogo RJ,0-1,?,Sport Recife
+Sat Feb 6 2021,Bahia,3-3,?,Goias
+Sat Feb 6 2021,Atletico GO,1-1,?,Santos
+Sun Feb 7 2021,Bragantino,1-1,?,Flamengo RJ
+Mon Feb 8 2021,Botafogo RJ,2-5,?,Gremio
+Wed Feb 10 2021,Internacional,1-2,?,Sport Recife
+Wed Feb 10 2021,Fortaleza,3-0,?,Vasco
+Wed Feb 10 2021,Sao Paulo,1-1,?,Ceara
+Wed Feb 10 2021,Corinthians,3-3,?,Athletico-PR
+Wed Feb 10 2021,Fluminense,0-0,?,Atletico-MG
+Sat Feb 13 2021,Goias,2-0,?,Botafogo RJ
+Sat Feb 13 2021,Atletico-MG,1-1,?,Bahia
+Sat Feb 13 2021,Santos,2-0,?,Coritiba
+Sun Feb 14 2021,Flamengo RJ,2-1,?,Corinthians
+Sun Feb 14 2021,Vasco,0-2,?,Internacional
+Sun Feb 14 2021,Athletico-PR,2-1,?,Atletico GO
+Sun Feb 14 2021,Palmeiras,3-0,?,Fortaleza
+Sun Feb 14 2021,Gremio,1-2,?,Sao Paulo
+Mon Feb 15 2021,Ceara,1-3,?,Fluminense
+Mon Feb 15 2021,Sport Recife,0-0,?,Bragantino
+Wed Feb 17 2021,Santos,1-0,?,Corinthians
+Wed Feb 17 2021,Coritiba,1-0,?,Palmeiras
+Fri Feb 19 2021,Sao Paulo,1-1,?,Palmeiras
+Sat Feb 20 2021,Coritiba,0-2,?,Ceara
+Sat Feb 20 2021,Fortaleza,0-4,?,Bahia
+Sun Feb 21 2021,Corinthians,0-0,?,Vasco
+Sun Feb 21 2021,Flamengo RJ,2-1,?,Internacional
+Sun Feb 21 2021,Sport Recife,2-3,?,Atletico-MG
+Sun Feb 21 2021,Gremio,1-0,?,Athletico-PR
+Sun Feb 21 2021,Santos,1-1,?,Fluminense
+Sun Feb 21 2021,Goias,0-0,?,Bragantino
+Mon Feb 22 2021,Palmeiras,1-1,?,Atletico GO
+Mon Feb 22 2021,Botafogo RJ,1-0,?,Sao Paulo
+Thu Feb 25 2021,Athletico-PR,2-0,?,Sport Recife
+Thu Feb 25 2021,Atletico GO,3-1,?,Coritiba
+Thu Feb 25 2021,Atletico-MG,2-0,?,Palmeiras
+Thu Feb 25 2021,Bahia,2-0,?,Santos
+Thu Feb 25 2021,Bragantino,1-0,?,Gremio
+Thu Feb 25 2021,Ceara,2-1,?,Botafogo RJ
+Thu Feb 25 2021,Fluminense,2-0,?,Fortaleza
+Thu Feb 25 2021,Internacional,0-0,?,Corinthians
+Thu Feb 25 2021,Sao Paulo,2-1,?,Flamengo RJ
+Thu Feb 25 2021,Vasco,3-2,?,Goias
