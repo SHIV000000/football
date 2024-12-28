@@ -199,54 +199,64 @@ def create_match_features_from_api(match_data, predictor):
     home_team = match_data['home_name']
     away_team = match_data['away_name']
     
-    # Get team statistics with better normalization
+    # Get team statistics
     home_ppg = float(match_data.get('home_ppg', 0))
     away_ppg = float(match_data.get('away_ppg', 0))
     home_overall_ppg = float(match_data.get('pre_match_teamA_overall_ppg', 0))
     away_overall_ppg = float(match_data.get('pre_match_teamB_overall_ppg', 0))
     
-    # Calculate expected goals and normalize
+    # Calculate expected goals and normalize them
     home_xg = float(match_data.get('team_a_xg_prematch', 0))
     away_xg = float(match_data.get('team_b_xg_prematch', 0))
+    total_xg = home_xg + away_xg
+    if total_xg > 0:
+        home_xg_norm = home_xg / total_xg
+        away_xg_norm = away_xg / total_xg
+    else:
+        home_xg_norm = 0.5
+        away_xg_norm = 0.5
     
-    # Calculate form based on PPG with better scaling
-    max_ppg = 3.0
-    home_form = min(home_overall_ppg / max_ppg, 1.0)
-    away_form = min(away_overall_ppg / max_ppg, 1.0)
+    # Calculate relative strengths using both home/away and overall PPG
+    home_strength = (home_ppg + home_overall_ppg) / 6  # Scale to 0-1
+    away_strength = (away_ppg + away_overall_ppg) / 6
     
-    # Calculate relative team strengths
-    total_ppg = home_overall_ppg + away_overall_ppg
-    home_strength = home_overall_ppg / total_ppg if total_ppg > 0 else 0.5
-    away_strength = away_overall_ppg / total_ppg if total_ppg > 0 else 0.5
+    # Convert odds to probabilities
+    home_odds = float(match_data.get('odds_ft_1', 2.0))
+    away_odds = float(match_data.get('odds_ft_2', 2.0))
+    odds_prob_home = 1 / home_odds
+    odds_prob_away = 1 / away_odds
+    total_odds_prob = odds_prob_home + odds_prob_away
+    if total_odds_prob > 0:
+        odds_prob_home = odds_prob_home / total_odds_prob
+        odds_prob_away = odds_prob_away / total_odds_prob
     
     feature_dict = {
-        'Team 1': abs(hash(home_team)) % 1000,
-        'Team 2': abs(hash(away_team)) % 1000,
+        'Team 1': hash(home_team) % 1000,
+        'Team 2': hash(away_team) % 1000,
         'DayOfWeek': datetime.fromtimestamp(match_data['date_unix']).weekday(),
         'Month': datetime.fromtimestamp(match_data['date_unix']).month,
         'Year': datetime.fromtimestamp(match_data['date_unix']).year,
         'league': match_data.get('competition_id', 0),
-        'Team 1_GoalDifference_Last5': home_strength - 0.5,  # Normalize to [-0.5, 0.5]
-        'Team 1_TotalGoals_Last5': home_xg / 3.0,  # Normalize expected goals
-        'Team 2_GoalDifference_Last5': away_strength - 0.5,
-        'Team 2_TotalGoals_Last5': away_xg / 3.0,
-        'Team 1_Form': home_form,
-        'Team 2_Form': away_form,
-        'yellow_cards_home': float(match_data.get('cards_potential', 0)) / 10.0,
+        'Team 1_GoalDifference_Last5': home_xg_norm - away_xg_norm,
+        'Team 1_TotalGoals_Last5': home_xg,
+        'Team 2_GoalDifference_Last5': away_xg_norm - home_xg_norm,
+        'Team 2_TotalGoals_Last5': away_xg,
+        'Team 1_Form': home_strength,
+        'Team 2_Form': away_strength,
+        'yellow_cards_home': float(match_data.get('cards_potential', 0)) / 2,
         'red_cards_home': 0,
-        'goals_home': home_ppg / max_ppg,
-        'assists_home': home_xg / 3.0,
-        'yellow_cards_away': float(match_data.get('cards_potential', 0)) / 10.0,
+        'goals_home': home_overall_ppg,
+        'assists_home': home_xg,
+        'yellow_cards_away': float(match_data.get('cards_potential', 0)) / 2,
         'red_cards_away': 0,
-        'goals_away': away_ppg / max_ppg,
-        'assists_away': away_xg / 3.0,
+        'goals_away': away_overall_ppg,
+        'assists_away': away_xg,
     }
 
     return pd.DataFrame([feature_dict])
 
 def adjust_probabilities(home_prob, draw_prob, away_prob, match_data):
-    """Adjust probabilities based on odds and team strengths with better balancing"""
-    
+    """Adjust probabilities based on odds and team strengths"""
     # Get odds
     home_odds = float(match_data.get('odds_ft_1', 2.0))
     away_odds = float(match_data.get('odds_ft_2', 2.0))
@@ -269,37 +279,33 @@ def adjust_probabilities(home_prob, draw_prob, away_prob, match_data):
     home_overall_ppg = float(match_data.get('pre_match_teamA_overall_ppg', 0))
     away_overall_ppg = float(match_data.get('pre_match_teamB_overall_ppg', 0))
     
-    # Calculate strength factors
-    max_ppg = 3.0
-    home_strength = min(home_overall_ppg / max_ppg, 1.0)
-    away_strength = min(away_overall_ppg / max_ppg, 1.0)
+    # Calculate form-based probabilities
+    total_ppg = home_overall_ppg + away_overall_ppg
+    if total_ppg > 0:
+        form_home_prob = home_overall_ppg / total_ppg
+        form_away_prob = away_overall_ppg / total_ppg
+    else:
+        form_home_prob = 0.4
+        form_away_prob = 0.4
+    form_draw_prob = 1 - (form_home_prob + form_away_prob)
     
-    # Adjust weights based on relative team strengths
-    strength_diff = abs(home_strength - away_strength)
-    draw_factor = 1.0 - strength_diff  # Higher chance of draw when teams are close
-    
-    # Calculate weighted probabilities
+    # Weights for different factors
     model_weight = 0.4
     odds_weight = 0.4
     form_weight = 0.2
     
-    final_home_prob = (
-        home_prob * model_weight +
-        odds_home_prob * odds_weight +
-        home_strength * form_weight
-    )
+    # Calculate final probabilities
+    final_home_prob = (home_prob * model_weight + 
+                      odds_home_prob * odds_weight + 
+                      form_home_prob * form_weight)
     
-    final_away_prob = (
-        away_prob * model_weight +
-        odds_away_prob * odds_weight +
-        away_strength * form_weight
-    )
+    final_away_prob = (away_prob * model_weight + 
+                      odds_away_prob * odds_weight + 
+                      form_away_prob * form_weight)
     
-    final_draw_prob = (
-        draw_prob * model_weight +
-        odds_draw_prob * odds_weight +
-        draw_factor * form_weight
-    )
+    final_draw_prob = (draw_prob * model_weight + 
+                      odds_draw_prob * odds_weight + 
+                      form_draw_prob * form_weight)
     
     # Normalize final probabilities
     total = final_home_prob + final_away_prob + final_draw_prob
@@ -307,17 +313,13 @@ def adjust_probabilities(home_prob, draw_prob, away_prob, match_data):
     final_away_prob /= total
     final_draw_prob /= total
     
-    # Apply minimum probability threshold
-    min_prob = 0.05
-    if final_home_prob < min_prob: final_home_prob = min_prob
-    if final_away_prob < min_prob: final_away_prob = min_prob
-    if final_draw_prob < min_prob: final_draw_prob = min_prob
-    
-    # Renormalize after applying minimum threshold
-    total = final_home_prob + final_away_prob + final_draw_prob
-    final_home_prob /= total
-    final_away_prob /= total
-    final_draw_prob /= total
+    # Apply minimum probability thresholds
+    min_prob = 0.1
+    if final_away_prob < min_prob:
+        final_away_prob = min_prob
+        excess = (1 - min_prob) / 2
+        final_home_prob = excess
+        final_draw_prob = excess
     
     return final_home_prob, final_draw_prob, final_away_prob
 
