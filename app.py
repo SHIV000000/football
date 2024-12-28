@@ -192,77 +192,134 @@ def load_model():
         return None
 
 
-# Load data
-@st.cache_data
-def load_cached_data():
-    df = load_data(data_dir)
-    additional_df = load_additional_data(additional_data_dir)
-    return df, additional_df
-
-df, additional_df = load_cached_data()
-
 # Load the predictor model
 predictor = load_model()
 
-def create_match_features(home_team, away_team, predictor, df, additional_df):
-    def encode_team(team):
-        try:
-            return predictor.label_encoder.transform([team])[0]
-        except ValueError:
-            return len(predictor.label_encoder.classes_)
-
-    home_team_encoded = encode_team(home_team)
-    away_team_encoded = encode_team(away_team)
-
-    # Get recent matches
-    home_recent = df[(df['Team 1'] == home_team) | (df['Team 2'] == home_team)].tail(10).copy()
-    away_recent = df[(df['Team 1'] == away_team) | (df['Team 2'] == away_team)].tail(10).copy()
-
-    # Calculate form and goals
-    home_form = calculate_form(home_recent, home_team)
-    away_form = calculate_form(away_recent, away_team)
-    home_goals = calculate_goals(home_recent, home_team)
-    away_goals = calculate_goals(away_recent, away_team)
-
-    # Get league encoding
-    league_encoding = get_league_encoding(df, home_team, away_team, predictor.label_encoder)
-
-    # Get team stats
-    home_stats = get_team_stats(additional_df, home_team)
-    away_stats = get_team_stats(additional_df, away_team)
-
+def create_match_features_from_api(match_data, predictor):
+    home_team = match_data['home_name']
+    away_team = match_data['away_name']
+    
+    # Get team statistics with better normalization
+    home_ppg = float(match_data.get('home_ppg', 0))
+    away_ppg = float(match_data.get('away_ppg', 0))
+    home_overall_ppg = float(match_data.get('pre_match_teamA_overall_ppg', 0))
+    away_overall_ppg = float(match_data.get('pre_match_teamB_overall_ppg', 0))
+    
+    # Calculate expected goals and normalize
+    home_xg = float(match_data.get('team_a_xg_prematch', 0))
+    away_xg = float(match_data.get('team_b_xg_prematch', 0))
+    
+    # Calculate form based on PPG with better scaling
+    max_ppg = 3.0
+    home_form = min(home_overall_ppg / max_ppg, 1.0)
+    away_form = min(away_overall_ppg / max_ppg, 1.0)
+    
+    # Calculate relative team strengths
+    total_ppg = home_overall_ppg + away_overall_ppg
+    home_strength = home_overall_ppg / total_ppg if total_ppg > 0 else 0.5
+    away_strength = away_overall_ppg / total_ppg if total_ppg > 0 else 0.5
+    
     feature_dict = {
-        'Team 1': home_team_encoded,
-        'Team 2': away_team_encoded,
-        'DayOfWeek': datetime.now().weekday(),
-        'Month': datetime.now().month,
-        'Year': datetime.now().year,
-        'league': league_encoding,
-        'Team 1_GoalDifference_Last5': home_goals['diff'],
-        'Team 1_TotalGoals_Last5': home_goals['total'],
-        'Team 2_GoalDifference_Last5': away_goals['diff'],
-        'Team 2_TotalGoals_Last5': away_goals['total'],
+        'Team 1': abs(hash(home_team)) % 1000,
+        'Team 2': abs(hash(away_team)) % 1000,
+        'DayOfWeek': datetime.fromtimestamp(match_data['date_unix']).weekday(),
+        'Month': datetime.fromtimestamp(match_data['date_unix']).month,
+        'Year': datetime.fromtimestamp(match_data['date_unix']).year,
+        'league': match_data.get('competition_id', 0),
+        'Team 1_GoalDifference_Last5': home_strength - 0.5,  # Normalize to [-0.5, 0.5]
+        'Team 1_TotalGoals_Last5': home_xg / 3.0,  # Normalize expected goals
+        'Team 2_GoalDifference_Last5': away_strength - 0.5,
+        'Team 2_TotalGoals_Last5': away_xg / 3.0,
         'Team 1_Form': home_form,
         'Team 2_Form': away_form,
-        'yellow_cards_home': home_stats['yellow_cards'],
-        'red_cards_home': home_stats['red_cards'],
-        'goals_home': home_stats['goals'],
-        'assists_home': home_stats['assists'],
-        'yellow_cards_away': away_stats['yellow_cards'],
-        'red_cards_away': away_stats['red_cards'],
-        'goals_away': away_stats['goals'],
-        'assists_away': away_stats['assists'],
+        'yellow_cards_home': float(match_data.get('cards_potential', 0)) / 10.0,
+        'red_cards_home': 0,
+        'goals_home': home_ppg / max_ppg,
+        'assists_home': home_xg / 3.0,
+        'yellow_cards_away': float(match_data.get('cards_potential', 0)) / 10.0,
+        'red_cards_away': 0,
+        'goals_away': away_ppg / max_ppg,
+        'assists_away': away_xg / 3.0,
     }
 
-    # Create DataFrame using the columns expected by the model
-    match_features = pd.DataFrame([feature_dict])
+    return pd.DataFrame([feature_dict])
 
-    # Handle missing values
-    imputer = SimpleImputer(strategy='mean')
-    match_features = pd.DataFrame(imputer.fit_transform(match_features), columns=match_features.columns)
-
-    return match_features
-
+def adjust_probabilities(home_prob, draw_prob, away_prob, match_data):
+    """Adjust probabilities based on odds and team strengths with better balancing"""
+    
+    # Get odds
+    home_odds = float(match_data.get('odds_ft_1', 2.0))
+    away_odds = float(match_data.get('odds_ft_2', 2.0))
+    draw_odds = float(match_data.get('odds_ft_x', 3.0))
+    
+    # Convert odds to probabilities
+    odds_home_prob = 1 / home_odds
+    odds_away_prob = 1 / away_odds
+    odds_draw_prob = 1 / draw_odds
+    
+    # Normalize odds probabilities
+    total_odds_prob = odds_home_prob + odds_away_prob + odds_draw_prob
+    odds_home_prob /= total_odds_prob
+    odds_away_prob /= total_odds_prob
+    odds_draw_prob /= total_odds_prob
+    
+    # Get team strengths
+    home_ppg = float(match_data.get('home_ppg', 0))
+    away_ppg = float(match_data.get('away_ppg', 0))
+    home_overall_ppg = float(match_data.get('pre_match_teamA_overall_ppg', 0))
+    away_overall_ppg = float(match_data.get('pre_match_teamB_overall_ppg', 0))
+    
+    # Calculate strength factors
+    max_ppg = 3.0
+    home_strength = min(home_overall_ppg / max_ppg, 1.0)
+    away_strength = min(away_overall_ppg / max_ppg, 1.0)
+    
+    # Adjust weights based on relative team strengths
+    strength_diff = abs(home_strength - away_strength)
+    draw_factor = 1.0 - strength_diff  # Higher chance of draw when teams are close
+    
+    # Calculate weighted probabilities
+    model_weight = 0.4
+    odds_weight = 0.4
+    form_weight = 0.2
+    
+    final_home_prob = (
+        home_prob * model_weight +
+        odds_home_prob * odds_weight +
+        home_strength * form_weight
+    )
+    
+    final_away_prob = (
+        away_prob * model_weight +
+        odds_away_prob * odds_weight +
+        away_strength * form_weight
+    )
+    
+    final_draw_prob = (
+        draw_prob * model_weight +
+        odds_draw_prob * odds_weight +
+        draw_factor * form_weight
+    )
+    
+    # Normalize final probabilities
+    total = final_home_prob + final_away_prob + final_draw_prob
+    final_home_prob /= total
+    final_away_prob /= total
+    final_draw_prob /= total
+    
+    # Apply minimum probability threshold
+    min_prob = 0.05
+    if final_home_prob < min_prob: final_home_prob = min_prob
+    if final_away_prob < min_prob: final_away_prob = min_prob
+    if final_draw_prob < min_prob: final_draw_prob = min_prob
+    
+    # Renormalize after applying minimum threshold
+    total = final_home_prob + final_away_prob + final_draw_prob
+    final_home_prob /= total
+    final_away_prob /= total
+    final_draw_prob /= total
+    
+    return final_home_prob, final_draw_prob, final_away_prob
 
 def calculate_form(recent_matches, team):
     if recent_matches.empty:
@@ -404,144 +461,163 @@ def show_main_app():
         # Fetch matches for the selected date range
         matches = get_matches_for_days(start_date, end_date)
 
-        if matches:
-            st.markdown(f"## Matches from {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")
-            
-            # Group matches by date
-            matches_by_date = {}
-            for match in matches:
-                match_date = datetime.fromtimestamp(match.get('date_unix', 0)).date()
-                if match_date not in matches_by_date:
-                    matches_by_date[match_date] = []
-                matches_by_date[match_date].append(match)
+        if not matches:
+            st.write(f"No matches found for the period {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")
+            return
 
-            # Display matches grouped by date
-            for date in sorted(matches_by_date.keys()):
-                st.markdown(f"### {date.strftime('%A, %B %d, %Y')}")
-                for match in matches_by_date[date]:
-                    home_team = match['home_name']
-                    away_team = match['away_name']
-                    
-                    st.markdown(f"""
-                    <div class="match-card">
-                        <h3>{home_team} vs {away_team}</h3>
-                    """, unsafe_allow_html=True)
-                    
-                    # Create match features and make prediction
-                    try:
-                        match_features = create_match_features(home_team, away_team, predictor, df, additional_df)
-                        predictions, probabilities = predictor.predict(match_features)
-                        
-                        # Display prediction
-                        home_prob, draw_prob, away_prob = probabilities[0]
-                        
-                        # Determine the predicted result based on the highest probability
-                        if home_prob > draw_prob and home_prob > away_prob:
-                            predicted_result = home_team
-                        elif away_prob > home_prob and away_prob > draw_prob:
-                            predicted_result = away_team
-                        else:
-                            predicted_result = "Draw"
-                        
-                        st.markdown(f"""
-                        <div class="prediction-box">
-                            <h4>Prediction</h4>
-                            <div class="predicted-result">{predicted_result}</div>
-                            <div class="probabilities">
-                                <div class="probability">
-                                    <div class="team-name">{home_team}</div>
-                                    <div class="prob-value">{home_prob:.2f}</div>
-                                </div>
-                                <div class="probability">
-                                    <div class="team-name">Draw</div>
-                                    <div class="prob-value">{draw_prob:.2f}</div>
-                                </div>
-                                <div class="probability">
-                                    <div class="team-name">{away_team}</div>
-                                    <div class="prob-value">{away_prob:.2f}</div>
-                                </div>
-                            </div>
-                        </div>
-                        """, unsafe_allow_html=True)
-                        
-                        # Display match odds
-                        st.markdown(f"""
-                        <div class="odds-box">
-                            <h4>Match Odds</h4>
-                            <div class="odds">
-                                <div class="odd-item">
-                                    <div class="team-name">{home_team} Win</div>
-                                    <div class="odd-value">{match.get('odds_ft_1', 'N/A')}</div>
-                                </div>
-                                <div class="odd-item">
-                                    <div class="team-name">Draw</div>
-                                    <div class="odd-value">{match.get('odds_ft_x', 'N/A')}</div>
-                                </div>
-                                <div class="odd-item">
-                                    <div class="team-name">{away_team} Win</div>
-                                    <div class="odd-value">{match.get('odds_ft_2', 'N/A')}</div>
-                                </div>
-                            </div>
-                        </div>
-                        """, unsafe_allow_html=True)
-                        
-                        # Display goal probabilities
-                        st.markdown(f"""
-                        <div class="goal-probs-box">
-                            <h4>Goal Probabilities</h4>
-                            <div class="goal-probs">
-                                <div class="goal-prob-item">
-                                    <div class="prob-name">Over 2.5 Goals</div>
-                                    <div class="prob-value">{match.get('o25_potential', 'N/A')}%</div>
-                                </div>
-                                <div class="goal-prob-item">
-                                    <div class="prob-name">Both Teams to Score</div>
-                                    <div class="prob-value">{match.get('btts_potential', 'N/A')}%</div>
-                                </div>
-                            </div>
-                        </div>
-                        """, unsafe_allow_html=True)
-                        
-                    except Exception as e:
-                        st.error(f"Error making prediction: {str(e)}")
-                        print(f"Detailed error: {e}")
+        st.markdown(f"## Matches from {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")
+        
+        # Group matches by date
+        matches_by_date = {}
+        for match in matches:
+            match_date = datetime.fromtimestamp(match.get('date_unix', 0)).date()
+            if match_date not in matches_by_date:
+                matches_by_date[match_date] = []
+            matches_by_date[match_date].append(match)
 
-                    # Display additional match information
-                    st.markdown(f"""
-                    <div class="match-details">
-                        <strong>Competition:</strong> {match.get('competition_id', 'Unknown')}<br>
-                        <strong>Date:</strong> {datetime.fromtimestamp(match.get('date_unix', 0)).strftime('%Y-%m-%d %H:%M')}<br>
-                        <strong>Stadium:</strong> {match.get('stadium_name', 'Unknown')}<br>
-                        <strong>Status:</strong> {match.get('status', 'Unknown')}
-                    </div>
-                    """, unsafe_allow_html=True)
+        # Display matches grouped by date
+        for date in sorted(matches_by_date.keys()):
+            st.markdown(f"### {date.strftime('%A, %B %d, %Y')}")
+            for match in matches_by_date[date]:
+                home_team = match['home_name']
+                away_team = match['away_name']
+                
+                st.markdown(f"""
+                <div class="match-card">
+                    <h3>{home_team} vs {away_team}</h3>
+                """, unsafe_allow_html=True)
+                
+                # Create match features and make prediction
+                try:
+                    match_features = create_match_features_from_api(match, predictor)
+                    predictions, probabilities = predictor.predict(match_features)
                     
-                    # Display team statistics
+                    # Get raw probabilities
+                    home_prob, draw_prob, away_prob = probabilities[0]
+                    
+                    # Adjust probabilities
+                    home_prob, draw_prob, away_prob = adjust_probabilities(
+                        home_prob, draw_prob, away_prob, match
+                    )
+                    
+                    # Determine predicted result
+                    if home_prob > draw_prob and home_prob > away_prob:
+                        predicted_result = home_team
+                    elif away_prob > home_prob and away_prob > draw_prob:
+                        predicted_result = away_team
+                    else:
+                        predicted_result = "Draw"
+                    
                     st.markdown(f"""
-                    <div class="team-stats-box">
-                        <h4>Team Statistics</h4>
-                        <div class="team-stats">
-                            <div class="team-stat">
-                                <h5>{home_team}</h5>
-                                <p>Home PPG: {match.get('home_ppg', 'N/A')}</p>
-                                <p>Overall PPG: {match.get('pre_match_teamA_overall_ppg', 'N/A')}</p>
-                                <p>Predicted xG: {match.get('team_a_xg_prematch', 'N/A')}</p>
+                    <div class="prediction-box">
+                        <h4>Prediction</h4>
+                        <div class="predicted-result">{predicted_result}</div>
+                        <div class="probabilities">
+                            <div class="probability">
+                                <div class="team-name">{home_team}</div>
+                                <div class="prob-value">{home_prob:.2f}</div>
                             </div>
-                            <div class="team-stat">
-                                <h5>{away_team}</h5>
-                                <p>Away PPG: {match.get('away_ppg', 'N/A')}</p>
-                                <p>Overall PPG: {match.get('pre_match_teamB_overall_ppg', 'N/A')}</p>
-                                <p>Predicted xG: {match.get('team_b_xg_prematch', 'N/A')}</p>
+                            <div class="probability">
+                                <div class="team-name">Draw</div>
+                                <div class="prob-value">{draw_prob:.2f}</div>
+                            </div>
+                            <div class="probability">
+                                <div class="team-name">{away_team}</div>
+                                <div class="prob-value">{away_prob:.2f}</div>
                             </div>
                         </div>
                     </div>
+                    """, unsafe_allow_html=True)
+                    
+                    # Display match odds
+                    st.markdown(f"""
+                    <div class="odds-box">
+                        <h4>Match Odds</h4>
+                        <div class="odds">
+                            <div class="odd-item">
+                                <div class="team-name">{home_team} Win</div>
+                                <div class="odd-value">{match.get('odds_ft_1', 'N/A')}</div>
+                            </div>
+                            <div class="odd-item">
+                                <div class="team-name">Draw</div>
+                                <div class="odd-value">{match.get('odds_ft_x', 'N/A')}</div>
+                            </div>
+                            <div class="odd-item">
+                                <div class="team-name">{away_team} Win</div>
+                                <div class="odd-value">{match.get('odds_ft_2', 'N/A')}</div>
+                            </div>
+                        </div>
                     </div>
                     """, unsafe_allow_html=True)
                     
+                    # Display goal probabilities
+                    st.markdown(f"""
+                    <div class="goal-probs-box">
+                        <h4>Goal Probabilities</h4>
+                        <div class="goal-probs">
+                            <div class="goal-prob-item">
+                                <div class="prob-name">Over 2.5 Goals</div>
+                                <div class="prob-value">{match.get('o25_potential', 'N/A')}%</div>
+                            </div>
+                            <div class="goal-prob-item">
+                                <div class="prob-name">Both Teams to Score</div>
+                                <div class="prob-value">{match.get('btts_potential', 'N/A')}%</div>
+                            </div>
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    
+                except Exception as e:
+                    st.error(f"Error making prediction: {str(e)}")
+                    print(f"Detailed error: {e}")
+
+                # Display additional match information
+                st.markdown(f"""
+                <div class="match-details">
+                    <strong>Competition:</strong> {match.get('competition_id', 'Unknown')}<br>
+                    <strong>Date:</strong> {datetime.fromtimestamp(match.get('date_unix', 0)).strftime('%Y-%m-%d %H:%M')}<br>
+                    <strong>Stadium:</strong> {match.get('stadium_name', 'Unknown')}<br>
+                    <strong>Status:</strong> {match.get('status', 'Unknown')}
+                </div>
+                """, unsafe_allow_html=True)
+                
+                # Display team statistics
+                st.markdown(f"""
+                <div class="team-stats-box">
+                    <h4>Team Statistics</h4>
+                    <div class="team-stats">
+                        <div class="team-stat">
+                            <h5>{home_team}</h5>
+                            <p>Home PPG: {match.get('home_ppg', 'N/A')}</p>
+                            <p>Overall PPG: {match.get('pre_match_teamA_overall_ppg', 'N/A')}</p>
+                            <p>Predicted xG: {match.get('team_a_xg_prematch', 'N/A')}</p>
+                        </div>
+                        <div class="team-stat">
+                            <h5>{away_team}</h5>
+                            <p>Away PPG: {match.get('away_ppg', 'N/A')}</p>
+                            <p>Overall PPG: {match.get('pre_match_teamB_overall_ppg', 'N/A')}</p>
+                            <p>Predicted xG: {match.get('team_b_xg_prematch', 'N/A')}</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                """, unsafe_allow_html=True)
+                
         else:
             st.write(f"No matches found for {date}")
 
-
+        # Add this to your main app
+        if st.checkbox("Debug API"):
+            if st.button("Test API"):
+                st.write("Testing API connection...")
+                today = datetime.now().strftime('%Y-%m-%d')
+                matches = get_matches(today)
+                
+                if matches:
+                    st.write("API Response:")
+                    st.json(matches[0])  # Display first match data
+                else:
+                    st.error("No matches found or API error")
 
 # Main app logic
 if not st.session_state.logged_in:

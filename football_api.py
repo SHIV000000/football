@@ -17,24 +17,69 @@ def get_matches(date=None):
     }
     
     try:
+        # Print request URL for debugging
+        request_url = f"{BASE_URL}?key={API_KEY}&date={date}"
+        print(f"Making request to: {request_url}")
+        
         response = requests.get(BASE_URL, params=params)
         response.raise_for_status()
+        
+        # Print raw response for debugging
+        print(f"Response status code: {response.status_code}")
+        print(f"Raw response: {response.text[:500]}...")  # Print first 500 chars
+        
         data = response.json()
         
-        if 'data' in data and data['data']:
-            return data['data']
+        if 'data' in data:
+            matches = data['data']
+            print(f"Number of matches found: {len(matches)}")
+            
+            # Print sample match data
+            if matches:
+                print("\nSample match data:")
+                print(json.dumps(matches[0], indent=2))
+            
+            return matches
         else:
-            print(f"No matches found for date: {date}")
-            if 'message' in data:
-                print(f"API message: {data['message']}")
+            print(f"No 'data' field in response. Response keys: {data.keys()}")
             return []
+            
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching matches: {e}")
+        print(f"Request error: {str(e)}")
         return []
-    except json.JSONDecodeError:
-        print(f"Error decoding JSON response for date: {date}")
+    except json.JSONDecodeError as e:
+        print(f"JSON decode error: {str(e)}")
         print(f"Response content: {response.text}")
         return []
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return []
 
-
-
+def get_team_stats(team_id):
+    """Get detailed team statistics from FootyStats API"""
+    team_stats_url = f'https://api.footystats.org/team-stats'
+    
+    params = {
+        'key': API_KEY,
+        'team_id': team_id
+    }
+    
+    try:
+        print(f"\nFetching team stats for team_id: {team_id}")
+        response = requests.get(team_stats_url, params=params)
+        response.raise_for_status()
+        
+        # Print response for debugging
+        print(f"Team stats response status: {response.status_code}")
+        data = response.json()
+        
+        if 'data' in data:
+            print("Team stats found")
+            return data['data']
+        else:
+            print(f"No team stats data found. Response keys: {data.keys()}")
+            return {}
+            
+    except Exception as e:
+        print(f"Error fetching team stats: {str(e)}")
+        return {}
