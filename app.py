@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from sklearn.impute import SimpleImputer
 
 
+
 # Get the absolute path of the current file (app.py)
 current_file_path = os.path.abspath(__file__)
 
@@ -37,144 +38,302 @@ additional_data_dir = os.path.join(project_root, 'sd')
 # Custom CSS
 st.markdown("""
 <style>
-    body {
-        color: #ffffff;
-        background-color: #4a4a4a;
-    }
+    /* Base styles */
     .stApp {
-        background-image: linear-gradient(to bottom, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
+        background-color: #f0f2f6;
     }
-    .main {
-        padding: 2rem;
-    }
-    h1 {
-        color: #ffd700;
-        text-align: center;
-        font-size: 3rem;
-        text-shadow: 2px 2px 4px #000000;
-    }
-    h3 {
-        color: #ffffff;
-        background-color: rgba(0, 0, 0, 0.5);
-        padding: 0.5rem;
-        border-radius: 5px;
-    }
-    .match-card {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
-        padding: 1rem;
-        margin-bottom: 1rem;
-    }
-    .team-name {
-        font-size: 1.2rem;
-        font-weight: bold;
-    }
-    .prediction {
-        font-size: 1.5rem;
-        color: #ffd700;
-        text-align: center;
-        margin: 1rem 0;
-    }
-    .probabilities {
-        display: flex;
-        justify-content: space-between;
-    }
-    .probability {
-        text-align: center;
-        padding: 0.5rem;
-        background-color: rgba(0, 0, 0, 0.3);
-        border-radius: 5px;
-        flex: 1;
-        margin: 0 0.5rem;
-    }
-    .match-details {
-        margin-top: 1rem;
-        font-size: 0.9rem;
-        color: #cccccc;
-    }
+
+    /* Login Form Styling */
     .login-container {
-        max-width: 400px;
-        margin: 0 auto;
+        background: white;
         padding: 2rem;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 2rem auto;
     }
-    .login-header {
-        color: #ffd700;
-        text-align: center;
-        font-size: 2rem;
-        margin-bottom: 1rem;
+
+    /* Form Elements */
+    .stTextInput > div > div {
+        background-color: white !important;
     }
+
+    .stTextInput input {
+        color: #1a1a1a !important;
+        background-color: white !important;
+        font-size: 1rem !important;
+    }
+
+    .stTextInput > label {
+        color: #1a1a1a !important;
+        font-weight: 600 !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* Button Styling - Global */
     .stButton > button {
-        background-color: #ffd700;
-        color: #1e3c72;
-        font-weight: bold;
+        width: 100% !important;
+        height: auto !important;
+        padding: 0.75rem 1.5rem !important;
+        background-color: #2c5282 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        margin: 0.5rem 0 !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
     }
-        .prediction-box, .odds-box, .goal-probs-box, .team-stats-box {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
+
+    .stButton > button:hover {
+        background-color: #1a365d !important;
+        transform: translateY(-1px) !important;
+    }
+
+    /* Login Form Submit Button */
+    .stForm button[type="submit"] {
+        width: 100% !important;
+        padding: 0.75rem 1.5rem !important;
+        background-color: #2c5282 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        margin-top: 1rem !important;
+        cursor: pointer !important;
+    }
+
+    .stForm button[type="submit"]:hover {
+        background-color: #1a365d !important;
+    }
+
+    /* Prediction Elements */
+    .winner-prediction {
+        background-color: #48bb78 !important;
+        color: white !important;
+        padding: 1rem !important;
+        border-radius: 8px !important;
+        margin: 1rem 0 !important;
+        text-align: center !important;
+        font-weight: bold !important;
+        font-size: 1.2rem !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .probability-container {
+        background-color: white !important;
+        padding: 1rem !important;
+        border-radius: 8px !important;
+        margin: 0.5rem !important;
+        text-align: center !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .probability-label {
+        color: #1a1a1a !important;
+        font-weight: 600 !important;
+        margin-bottom: 0.5rem !important;
+        font-size: 1rem !important;
+    }
+
+    .probability-value {
+        color: #2c5282 !important;
+        font-size: 1.4rem !important;
+        font-weight: 700 !important;
+    }
+
+    /* Match Card */
+    .match-card {
+        background-color: white !important;
+        padding: 1.5rem !important;
+        border-radius: 12px !important;
+        margin: 1rem 0 !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .team-name {
+        color: #1a1a1a !important;
+        font-size: 1.4rem !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        margin: 1rem 0 !important;
+    }
+
+    /* Odds Container */
+    .odds-container {
+        background-color: white !important;
+        padding: 1.5rem !important;
+        border-radius: 8px !important;
+        margin: 1rem 0 !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .odds-container h4 {
+        color: #1a1a1a !important;
+        font-size: 1.1rem !important;
+        font-weight: 600 !important;
+        margin-bottom: 1rem !important;
+        padding-bottom: 0.5rem !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+    }
+
+    .odds-row {
+        display: flex !important;
+        justify-content: space-between !important;
+        padding: 0.5rem 0 !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+    }
+
+    .odds-label {
+        color: #1a1a1a !important;
+        font-weight: 500 !important;
+    }
+
+    .odds-value {
+        color: #2c5282 !important;
+        font-weight: 700 !important;
+    }
+
+    /* Headers */
+    h1, h2, h3, h4 {
+        color: #1a1a1a !important;
+        margin: 1rem 0 !important;
+    }
+
+    /* Error Messages */
+    .stAlert {
+        background-color: #fff5f5 !important;
+        color: #c53030 !important;
+        border: 1px solid #feb2b2 !important;
+        padding: 1rem !important;
+        border-radius: 8px !important;
+        margin: 1rem 0 !important;
+    }
+
+    /* Prediction Sentiment Colors */
+    .prediction-high {
+        background-color: #48bb78 !important;  /* Green */
+        color: white !important;
+        padding: 1rem !important;
+        border-radius: 8px !important;
+        margin: 1rem 0 !important;
+        text-align: center !important;
+        font-weight: bold !important;
+        font-size: 1.2rem !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .prediction-medium {
+        background-color: #ed8936 !important;  /* Orange */
+        color: white !important;
+        padding: 1rem !important;
+        border-radius: 8px !important;
+        margin: 1rem 0 !important;
+        text-align: center !important;
+        font-weight: bold !important;
+        font-size: 1.2rem !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .prediction-low {
+        background-color: #e53e3e !important;  /* Red */
+        color: white !important;
+        padding: 1rem !important;
+        border-radius: 8px !important;
+        margin: 1rem 0 !important;
+        text-align: center !important;
+        font-weight: bold !important;
+        font-size: 1.2rem !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    /* Date Input Styling */
+    .stDateInput > label {
+        color: #1a1a1a !important;
+        font-weight: 600 !important;
+        font-size: 1rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    /* Progress Bar Container */
+    .progress-container {
+        background: white;
         padding: 1rem;
-        margin-bottom: 1rem;
+        border-radius: 8px;
+        margin: 0.5rem 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    .prediction-box h4, .odds-box h4, .goal-probs-box h4, .team-stats-box h4 {
-        color: #ffd700;
+    .progress-label {
+        color: #1a1a1a;
+        font-weight: 600;
         margin-bottom: 0.5rem;
-    }
-
-    .predicted-result {
-        font-size: 1.8rem;
-        font-weight: bold;
-        text-align: center;
-        color: #ffd700;
-        margin-bottom: 1rem;
-    }
-        .probabilities, .odds, .goal-probs, .team-stats {
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
-    .probability, .odd-item, .goal-prob-item, .team-stat {
-        flex: 1;
-        text-align: center;
-        padding: 0.5rem;
-        background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
-        margin: 0 0.25rem;
+    .progress-bar {
+        width: 100%;
+        height: 8px;
+        background-color: #e2e8f0;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-top: 0.25rem;
     }
 
-    .team-name, .prob-name {
-        font-weight: bold;
-        margin-bottom: 0.25rem;
+    .progress-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.5s ease;
     }
 
-    .prob-value, .odd-value {
-        font-size: 1.2rem;
-        color: #ffd700;
+    .progress-fill-home {
+        background-color: #48bb78;  /* Green */
     }
 
-    .team-stats-box .team-stat {
-        background-color: rgba(0, 0, 0, 0.2);
-        padding: 1rem;
+    .progress-fill-draw {
+        background-color: #ed8936;  /* Orange */
     }
 
-    .team-stats-box h5 {
-        color: #ffd700;
+    .progress-fill-away {
+        background-color: #3182ce;  /* Blue */
+    }
+
+    /* Progress Bar Styling */
+    .stProgress > div > div > div {
+        height: 8px;
+        background-color: #e2e8f0;
+    }
+    
+    /* Home Team Progress */
+    .stProgress:nth-of-type(1) > div > div > div > div {
+        background-color: #48bb78 !important;
+    }
+    
+    /* Draw Progress */
+    .stProgress:nth-of-type(2) > div > div > div > div {
+        background-color: #ed8936 !important;
+    }
+    
+    /* Away Team Progress */
+    .stProgress:nth-of-type(3) > div > div > div > div {
+        background-color: #3182ce !important;
+    }
+    
+    /* Adjust spacing */
+    .stProgress {
         margin-bottom: 0.5rem;
     }
-
-    .team-stats-box p {
-        margin: 0.25rem 0;
-    }
-
-    .match-details {
-        background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
-        padding: 0.5rem;
-        margin-top: 1rem;
+    
+    /* Team names and percentages */
+    .element-container p {
+        margin-bottom: 1rem;
+        font-weight: 500;
     }
 </style>
-
 """, unsafe_allow_html=True)
 
 # Load the saved model
@@ -412,23 +571,27 @@ def logout():
 
 
 def show_login_page():
-    st.markdown("<h1>⚽ Football Match Predictor ⚽ </h1>", unsafe_allow_html=True)
-    st.markdown("<div class='login-container'>", unsafe_allow_html=True)
-    st.markdown("<h2 class='login-header'>Login</h2>", unsafe_allow_html=True)
+    st.markdown('<h1 class="app-title">⚽ Football Match Predictor</h1>', unsafe_allow_html=True)
     
-    with st.form("login_form"):
-        username = st.text_input("Username")
-        password = st.text_input("Password", type="password")
-        submit_button = st.form_submit_button("Login")
+    with st.container():
+        st.markdown("""
+            <div class="login-container">
+                <h2 style="color: #1a1a1a; text-align: center; margin-bottom: 2rem;">Welcome Back!</h2>
+            </div>
+        """, unsafe_allow_html=True)
         
-        if submit_button:
-            if login(username, password):
-                st.success("Login successful!")
-            else:
-                st.error("Invalid username or password")
-    
-    st.markdown("</div>", unsafe_allow_html=True)
-
+        with st.form("login_form", clear_on_submit=False):
+            username = st.text_input("Username", placeholder="Enter your username")
+            password = st.text_input("Password", type="password", placeholder="Enter your password")
+            
+            submitted = st.form_submit_button("Login", use_container_width=True)
+            
+            if submitted:
+                if username == "matchday_wizard" and password == "GoalMaster":
+                    st.session_state.logged_in = True
+                    st.rerun()
+                else:
+                    st.error("Invalid username or password")
 
 def get_matches_for_days(start_date, end_date):
     all_matches = []
@@ -439,190 +602,312 @@ def get_matches_for_days(start_date, end_date):
         current_date += timedelta(days=1)
     return all_matches
 
-# Main app
-def show_main_app():
-    st.markdown("<h1>⚽ Football Match Predictor 🏆</h1>", unsafe_allow_html=True)
+def calculate_match_prediction(match):
+    """Calculate match prediction using multiple factors"""
     
-    if st.button("Logout"):
-        logout()
+    # Get basic odds
+    home_odds = float(match.get('odds_ft_1', 0))
+    draw_odds = float(match.get('odds_ft_x', 0))
+    away_odds = float(match.get('odds_ft_2', 0))
     
-    if predictor is None:
-        st.error("Unable to load the model. Please check the file paths and try again.")
+    # Get team performance metrics
+    home_ppg = float(match.get('home_ppg', 0))
+    away_ppg = float(match.get('away_ppg', 0))
+    home_overall_ppg = float(match.get('pre_match_teamA_overall_ppg', 0))
+    away_overall_ppg = float(match.get('pre_match_teamB_overall_ppg', 0))
+    
+    # Get expected goals (xG)
+    home_xg = float(match.get('team_a_xg_prematch', 0))
+    away_xg = float(match.get('team_b_xg_prematch', 0))
+    
+    # Calculate probabilities from odds (if available)
+    if all([home_odds, draw_odds, away_odds]):
+        # Convert odds to probabilities
+        total_prob = (1/home_odds + 1/draw_odds + 1/away_odds)
+        home_prob_odds = (1/home_odds) / total_prob
+        draw_prob_odds = (1/draw_odds) / total_prob
+        away_prob_odds = (1/away_odds) / total_prob
     else:
-        # Date range selection
-        col1, col2 = st.columns(2)
-        with col1:
-            start_date = st.date_input("Start date", datetime.now())
-        with col2:
-            end_date = st.date_input("End date", datetime.now() + timedelta(days=1))
+        home_prob_odds = 0.33
+        draw_prob_odds = 0.33
+        away_prob_odds = 0.33
+    
+    # Calculate form-based probabilities
+    total_ppg = home_ppg + away_ppg
+    if total_ppg > 0:
+        home_prob_form = home_ppg / total_ppg
+        away_prob_form = away_ppg / total_ppg
+    else:
+        home_prob_form = 0.5
+        away_prob_form = 0.5
+    
+    # Calculate xG-based probabilities
+    total_xg = home_xg + away_xg
+    if total_xg > 0:
+        home_prob_xg = home_xg / total_xg
+        away_prob_xg = away_xg / total_xg
+    else:
+        home_prob_xg = 0.5
+        away_prob_xg = 0.5
+    
+    # Weighted combination of all factors
+    # Odds are given highest weight as they incorporate market knowledge
+    home_final = (home_prob_odds * 0.5) + (home_prob_form * 0.25) + (home_prob_xg * 0.25)
+    away_final = (away_prob_odds * 0.5) + (away_prob_form * 0.25) + (away_prob_xg * 0.25)
+    
+    # Calculate draw probability (based on odds and typical draw frequency)
+    draw_final = draw_prob_odds * 0.6  # Reduce draw probability slightly as they're less common
+    
+    # Normalize probabilities to sum to 1
+    total = home_final + away_final + draw_final
+    home_final /= total
+    away_final /= total
+    draw_final /= total
+    
+    return home_final, draw_final, away_final
 
-        if start_date > end_date:
-            st.error("End date must be after start date")
-            return
-
-        # Fetch matches for the selected date range
-        matches = get_matches_for_days(start_date, end_date)
-
-        if not matches:
-            st.write(f"No matches found for the period {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")
-            return
-
-        st.markdown(f"## Matches from {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")
+def display_prediction(prediction, confidence):
+    """Display prediction with appropriate color based on confidence level"""
+    if confidence >= 0.6:
+        sentiment_class = "prediction-high"
+        confidence_text = "High Confidence"
+    elif confidence >= 0.4:
+        sentiment_class = "prediction-medium"
+        confidence_text = "Medium Confidence"
+    else:
+        sentiment_class = "prediction-low"
+        confidence_text = "Low Confidence"
         
-        # Group matches by date
-        matches_by_date = {}
-        for match in matches:
-            match_date = datetime.fromtimestamp(match.get('date_unix', 0)).date()
-            if match_date not in matches_by_date:
-                matches_by_date[match_date] = []
-            matches_by_date[match_date].append(match)
+    st.markdown(f"""
+        <div class="{sentiment_class}">
+            {prediction}
+            <div style="font-size: 0.9rem; margin-top: 0.5rem;">
+                {confidence_text}
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
 
-        # Display matches grouped by date
-        for date in sorted(matches_by_date.keys()):
-            st.markdown(f"### {date.strftime('%A, %B %d, %Y')}")
-            for match in matches_by_date[date]:
-                home_team = match['home_name']
-                away_team = match['away_name']
-                
-                st.markdown(f"""
-                <div class="match-card">
-                    <h3>{home_team} vs {away_team}</h3>
-                """, unsafe_allow_html=True)
-                
-                # Create match features and make prediction
-                try:
-                    match_features = create_match_features_from_api(match, predictor)
-                    predictions, probabilities = predictor.predict(match_features)
-                    
-                    # Get raw probabilities
-                    home_prob, draw_prob, away_prob = probabilities[0]
-                    
-                    # Adjust probabilities
-                    home_prob, draw_prob, away_prob = adjust_probabilities(
-                        home_prob, draw_prob, away_prob, match
-                    )
-                    
-                    # Determine predicted result
-                    if home_prob > draw_prob and home_prob > away_prob:
-                        predicted_result = home_team
-                    elif away_prob > home_prob and away_prob > draw_prob:
-                        predicted_result = away_team
-                    else:
-                        predicted_result = "Draw"
-                    
-                    st.markdown(f"""
-                    <div class="prediction-box">
-                        <h4>Prediction</h4>
-                        <div class="predicted-result">{predicted_result}</div>
-                        <div class="probabilities">
-                            <div class="probability">
-                                <div class="team-name">{home_team}</div>
-                                <div class="prob-value">{home_prob:.2f}</div>
-                            </div>
-                            <div class="probability">
-                                <div class="team-name">Draw</div>
-                                <div class="prob-value">{draw_prob:.2f}</div>
-                            </div>
-                            <div class="probability">
-                                <div class="team-name">{away_team}</div>
-                                <div class="prob-value">{away_prob:.2f}</div>
-                            </div>
-                        </div>
+def display_probability_bars(home_prob, draw_prob, away_prob, home_team, away_team):
+    """Display probability bars for match outcomes"""
+    st.markdown("### Match Outcome Probabilities")
+    
+    # Create a container with white background
+    with st.container():
+        st.markdown("""
+            <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 1rem 0;">
+            </div>
+        """, unsafe_allow_html=True)
+        
+        # Create three columns for the probabilities
+        col1, col2, col3 = st.columns(3)
+        
+        # Home team probability
+        with col1:
+            st.markdown(f"""
+                <div style="text-align: center;">
+                    <div style="margin-bottom: 0.5rem;">
+                        <span style="color: #48bb78; font-weight: 600; font-size: 1.2rem;">{home_prob:.1%}</span>
                     </div>
-                    """, unsafe_allow_html=True)
-                    
-                    # Display match odds
-                    st.markdown(f"""
-                    <div class="odds-box">
-                        <h4>Match Odds</h4>
-                        <div class="odds">
-                            <div class="odd-item">
-                                <div class="team-name">{home_team} Win</div>
-                                <div class="odd-value">{match.get('odds_ft_1', 'N/A')}</div>
-                            </div>
-                            <div class="odd-item">
-                                <div class="team-name">Draw</div>
-                                <div class="odd-value">{match.get('odds_ft_x', 'N/A')}</div>
-                            </div>
-                            <div class="odd-item">
-                                <div class="team-name">{away_team} Win</div>
-                                <div class="odd-value">{match.get('odds_ft_2', 'N/A')}</div>
-                            </div>
-                        </div>
+                    <div style="color: #1a1a1a; font-weight: 500;">{home_team}</div>
+                </div>
+            """, unsafe_allow_html=True)
+        
+        # Draw probability
+        with col2:
+            st.markdown(f"""
+                <div style="text-align: center;">
+                    <div style="margin-bottom: 0.5rem;">
+                        <span style="color: #ed8936; font-weight: 600; font-size: 1.2rem;">{draw_prob:.1%}</span>
                     </div>
-                    """, unsafe_allow_html=True)
-                    
-                    # Display goal probabilities
-                    st.markdown(f"""
-                    <div class="goal-probs-box">
-                        <h4>Goal Probabilities</h4>
-                        <div class="goal-probs">
-                            <div class="goal-prob-item">
-                                <div class="prob-name">Over 2.5 Goals</div>
-                                <div class="prob-value">{match.get('o25_potential', 'N/A')}%</div>
-                            </div>
-                            <div class="goal-prob-item">
-                                <div class="prob-name">Both Teams to Score</div>
-                                <div class="prob-value">{match.get('btts_potential', 'N/A')}%</div>
-                            </div>
-                        </div>
+                    <div style="color: #1a1a1a; font-weight: 500;">Draw</div>
+                </div>
+            """, unsafe_allow_html=True)
+        
+        # Away team probability
+        with col3:
+            st.markdown(f"""
+                <div style="text-align: center;">
+                    <div style="margin-bottom: 0.5rem;">
+                        <span style="color: #3182ce; font-weight: 600; font-size: 1.2rem;">{away_prob:.1%}</span>
                     </div>
-                    """, unsafe_allow_html=True)
-                    
-                except Exception as e:
-                    st.error(f"Error making prediction: {str(e)}")
-                    print(f"Detailed error: {e}")
+                    <div style="color: #1a1a1a; font-weight: 500;">{away_team}</div>
+                </div>
+            """, unsafe_allow_html=True)
+        
+        # Add the combined progress bar
+        st.markdown(f"""
+            <div style="margin-top: 1rem; padding: 0 1rem;">
+                <div style="width: 100%; height: 20px; background: #e2e8f0; border-radius: 10px; overflow: hidden; display: flex;">
+                    <div style="width: {home_prob * 100}%; height: 100%; background-color: #48bb78;"></div>
+                    <div style="width: {draw_prob * 100}%; height: 100%; background-color: #ed8936;"></div>
+                    <div style="width: {away_prob * 100}%; height: 100%; background-color: #3182ce;"></div>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; margin-top: 1rem; padding: 0 1rem;">
+                <div style="display: flex; align-items: center;">
+                    <div style="width: 10px; height: 10px; background: #48bb78; border-radius: 2px; margin-right: 5px;"></div>
+                    <span style="font-size: 0.8rem;">Home Win</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <div style="width: 10px; height: 10px; background: #ed8936; border-radius: 2px; margin-right: 5px;"></div>
+                    <span style="font-size: 0.8rem;">Draw</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <div style="width: 10px; height: 10px; background: #3182ce; border-radius: 2px; margin-right: 5px;"></div>
+                    <span style="font-size: 0.8rem;">Away Win</span>
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
 
-                # Display additional match information
-                st.markdown(f"""
-                <div class="match-details">
-                    <strong>Competition:</strong> {match.get('competition_id', 'Unknown')}<br>
-                    <strong>Date:</strong> {datetime.fromtimestamp(match.get('date_unix', 0)).strftime('%Y-%m-%d %H:%M')}<br>
-                    <strong>Stadium:</strong> {match.get('stadium_name', 'Unknown')}<br>
-                    <strong>Status:</strong> {match.get('status', 'Unknown')}
-                </div>
-                """, unsafe_allow_html=True)
+def show_main_app():
+    st.markdown("<h1>⚽ Football Match Predictor ⚽</h1>", unsafe_allow_html=True)
+    
+    # Logout button at the top
+    col1, col2, col3 = st.columns([3,2,3])
+    with col2:
+        if st.button("Logout", key="logout", help="Click to logout"):
+            logout()
+            st.rerun()
+
+    # Date selection
+    st.markdown("<h3>Select Match Date</h3>", unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown('<p style="color: #1a1a1a; font-weight: 600; font-size: 1rem;">From Date</p>', unsafe_allow_html=True)
+        start_date = st.date_input("", min_value=datetime.now().date(), value=datetime.now().date())
+    with col2:
+        st.markdown('<p style="color: #1a1a1a; font-weight: 600; font-size: 1rem;">To Date</p>', unsafe_allow_html=True)
+        end_date = st.date_input(" ", min_value=start_date, value=start_date + timedelta(days=7))
+    
+    if start_date and end_date:
+        if start_date <= end_date:
+            with st.spinner("Fetching matches..."):
+                matches = get_matches_for_days(start_date, end_date)
+            
+            if matches:
+                st.markdown("<h3>Match Predictions</h3>", unsafe_allow_html=True)
                 
-                # Display team statistics
-                st.markdown(f"""
-                <div class="team-stats-box">
-                    <h4>Team Statistics</h4>
-                    <div class="team-stats">
-                        <div class="team-stat">
-                            <h5>{home_team}</h5>
-                            <p>Home PPG: {match.get('home_ppg', 'N/A')}</p>
-                            <p>Overall PPG: {match.get('pre_match_teamA_overall_ppg', 'N/A')}</p>
-                            <p>Predicted xG: {match.get('team_a_xg_prematch', 'N/A')}</p>
-                        </div>
-                        <div class="team-stat">
-                            <h5>{away_team}</h5>
-                            <p>Away PPG: {match.get('away_ppg', 'N/A')}</p>
-                            <p>Overall PPG: {match.get('pre_match_teamB_overall_ppg', 'N/A')}</p>
-                            <p>Predicted xG: {match.get('team_b_xg_prematch', 'N/A')}</p>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                """, unsafe_allow_html=True)
-                
+                for match in matches:
+                    with st.container():
+                        home_team = match.get('home_name', 'Unknown')
+                        away_team = match.get('away_name', 'Unknown')
+                        
+                        st.markdown(f"""
+                        <div class="match-card">
+                            <div class="team-name">{home_team} vs {away_team}</div>
+                        """, unsafe_allow_html=True)
+                        
+                        try:
+                            features = create_match_features_from_api(match, predictor)
+                            prediction, probabilities = predictor.predict(features)
+                            
+                            # Get probabilities
+                            home_prob, draw_prob, away_prob = calculate_match_prediction(match)
+                            
+                            # Determine winner
+                            winner = ""
+                            max_prob = max(home_prob, draw_prob, away_prob)
+                            if max_prob == home_prob:
+                                winner = f"{home_team} (Home)"
+                                winner_prob = home_prob
+                            elif max_prob == away_prob:
+                                winner = f"{away_team} (Away)"
+                                winner_prob = away_prob
+                            else:
+                                winner = "Draw"
+                                winner_prob = draw_prob
+                            
+                            # Display winner prediction with confidence level
+                            display_prediction(f"Most Likely Outcome: {winner}", winner_prob)
+                            
+                            # Display probability bars
+                            display_probability_bars(home_prob, draw_prob, away_prob, home_team, away_team)
+                            
+                            # Display odds
+                            st.markdown("<h4>Match Odds</h4>", unsafe_allow_html=True)
+                            odds_col1, odds_col2 = st.columns(2)
+                            
+                            with odds_col1:
+                                over_under_odds = calculate_over_under_odds(match)
+                                st.markdown(f"""
+                                <div class="odds-container">
+                                    <h4>Over/Under 2.5 Goals</h4>
+                                    <div class="odds-row">
+                                        <span class="odds-label">Over</span>
+                                        <span class="odds-value">{over_under_odds['over']:.2f}</span>
+                                    </div>
+                                    <div class="odds-row">
+                                        <span class="odds-label">Under</span>
+                                        <span class="odds-value">{over_under_odds['under']:.2f}</span>
+                                    </div>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            
+                            with odds_col2:
+                                btts_odds = calculate_btts_odds(match)
+                                st.markdown(f"""
+                                <div class="odds-container">
+                                    <h4>Both Teams to Score</h4>
+                                    <div class="odds-row">
+                                        <span class="odds-label">Yes</span>
+                                        <span class="odds-value">{btts_odds['yes']:.2f}</span>
+                                    </div>
+                                    <div class="odds-row">
+                                        <span class="odds-label">No</span>
+                                        <span class="odds-value">{btts_odds['no']:.2f}</span>
+                                    </div>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            
+                        except Exception as e:
+                            st.error(f"Error processing match: {str(e)}")
+                        
+                        st.markdown("</div>", unsafe_allow_html=True)
+            else:
+                st.warning("No matches found for the selected dates. Please try a different date range.")
         else:
-            st.write(f"No matches found for {date}")
+            st.error("End date must be after start date")
 
-        # Add this to your main app
-        if st.checkbox("Debug API"):
-            if st.button("Test API"):
-                st.write("Testing API connection...")
-                today = datetime.now().strftime('%Y-%m-%d')
-                matches = get_matches(today)
-                
-                if matches:
-                    st.write("API Response:")
-                    st.json(matches[0])  # Display first match data
-                else:
-                    st.error("No matches found or API error")
+def calculate_over_under_odds(match_data):
+    """Calculate odds for Over/Under 2.5 goals based on team statistics and form"""
+    # This is a simplified calculation - you might want to use more sophisticated methods
+    home_goals_scored = match_data.get('home_team_goals_scored_avg', 1.5)
+    away_goals_scored = match_data.get('away_team_goals_scored_avg', 1.5)
+    expected_goals = home_goals_scored + away_goals_scored
+    
+    # Convert probability to odds
+    over_prob = 1 / (1 + np.exp(-0.5 * (expected_goals - 2.5)))
+    under_prob = 1 - over_prob
+    
+    # Convert probabilities to odds (adding a small margin)
+    margin = 0.1
+    over_odds = (1 / over_prob) * (1 + margin)
+    under_odds = (1 / under_prob) * (1 + margin)
+    
+    return {'over': over_odds, 'under': under_odds}
+
+def calculate_btts_odds(match_data):
+    """Calculate Both Teams to Score odds based on team statistics"""
+    # This is a simplified calculation - you might want to use more sophisticated methods
+    home_scoring_prob = match_data.get('home_team_scoring_prob', 0.6)
+    away_scoring_prob = match_data.get('away_team_scoring_prob', 0.5)
+    
+    # Probability of both teams scoring
+    btts_prob = home_scoring_prob * away_scoring_prob
+    no_btts_prob = 1 - btts_prob
+    
+    # Convert probabilities to odds (adding a small margin)
+    margin = 0.1
+    yes_odds = (1 / btts_prob) * (1 + margin)
+    no_odds = (1 / no_btts_prob) * (1 + margin)
+    
+    return {'yes': yes_odds, 'no': no_odds}
 
 # Main app logic
 if not st.session_state.logged_in:
     show_login_page()
 else:
     show_main_app()
+
