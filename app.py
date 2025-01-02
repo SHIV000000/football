@@ -148,105 +148,17 @@ st.markdown("""
     .match-card {
         background-color: white !important;
         padding: 1.5rem !important;
-        border-radius: 12px !important;
+        border-radius: 8px !important;
         margin: 1rem 0 !important;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
     }
 
     .team-name {
         color: #1a1a1a !important;
-        font-size: 1.4rem !important;
+        font-size: 1.2rem !important;
         font-weight: 600 !important;
-        text-align: center !important;
-        margin: 1rem 0 !important;
-    }
-
-    /* Odds Container */
-    .odds-container {
-        background-color: white !important;
-        padding: 1.5rem !important;
-        border-radius: 8px !important;
-        margin: 1rem 0 !important;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-    }
-
-    .odds-container h4 {
-        color: #1a1a1a !important;
-        font-size: 1.1rem !important;
-        font-weight: 600 !important;
-        margin-bottom: 1rem !important;
-        padding-bottom: 0.5rem !important;
-        border-bottom: 1px solid #e2e8f0 !important;
-    }
-
-    .odds-row {
-        display: flex !important;
-        justify-content: space-between !important;
-        padding: 0.5rem 0 !important;
-        border-bottom: 1px solid #f0f0f0 !important;
-    }
-
-    .odds-label {
-        color: #1a1a1a !important;
-        font-weight: 500 !important;
-    }
-
-    .odds-value {
-        color: #2c5282 !important;
-        font-weight: 700 !important;
-    }
-
-    /* Headers */
-    h1, h2, h3, h4 {
-        color: #1a1a1a !important;
-        margin: 1rem 0 !important;
-    }
-
-    /* Error Messages */
-    .stAlert {
-        background-color: #fff5f5 !important;
-        color: #c53030 !important;
-        border: 1px solid #feb2b2 !important;
-        padding: 1rem !important;
-        border-radius: 8px !important;
-        margin: 1rem 0 !important;
-    }
-
-    /* Prediction Sentiment Colors */
-    .prediction-high {
-        background-color: #48bb78 !important;  /* Green */
-        color: white !important;
-        padding: 1rem !important;
-        border-radius: 8px !important;
         margin: 1rem 0 !important;
         text-align: center !important;
-        font-weight: bold !important;
-        font-size: 1.2rem !important;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-    }
-
-    .prediction-medium {
-        background-color: #ed8936 !important;  /* Orange */
-        color: white !important;
-        padding: 1rem !important;
-        border-radius: 8px !important;
-        margin: 1rem 0 !important;
-        text-align: center !important;
-        font-weight: bold !important;
-        font-size: 1.2rem !important;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-    }
-
-    .prediction-low {
-        background-color: #e53e3e !important;  /* Red */
-        color: white !important;
-        padding: 1rem !important;
-        border-radius: 8px !important;
-        margin: 1rem 0 !important;
-        text-align: center !important;
-        font-weight: bold !important;
-        font-size: 1.2rem !important;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
     }
 
     /* Date Input Styling */
@@ -255,6 +167,41 @@ st.markdown("""
         font-weight: 600 !important;
         font-size: 1rem !important;
         margin-bottom: 0.5rem !important;
+    }
+
+    /* Calendar styling for both light and dark modes */
+    .stDateInput input {
+        color: #1a1a1a !important;
+        background-color: white !important;
+        border: 1px solid #cccccc !important;
+    }
+
+    /* Calendar popup styling */
+    .react-datepicker {
+        background-color: white !important;
+        border: 1px solid #cccccc !important;
+    }
+
+    .react-datepicker__header {
+        background-color: #f0f2f6 !important;
+    }
+
+    .react-datepicker__day {
+        color: #1a1a1a !important;
+    }
+
+    .react-datepicker__day:hover {
+        background-color: #e6e6e6 !important;
+    }
+
+    .react-datepicker__day--selected {
+        background-color: #2196f3 !important;
+        color: white !important;
+    }
+
+    .react-datepicker__day--keyboard-selected {
+        background-color: #2196f3 !important;
+        color: white !important;
     }
 
     /* Progress Bar Container */
@@ -332,6 +279,52 @@ st.markdown("""
     .element-container p {
         margin-bottom: 1rem;
         font-weight: 500;
+    }
+
+    /* Headers and Text */
+    h1, h2, h3, h4, h5, h6 {
+        color: #1a1a1a !important;
+        font-weight: 600 !important;
+    }
+
+    /* Prediction Text */
+    .prediction-text {
+        color: #1a1a1a !important;
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
+        margin: 0.5rem 0 !important;
+    }
+
+    /* Confidence Levels */
+    .prediction-high, .prediction-medium, .prediction-low {
+        color: white !important;
+        padding: 1rem !important;
+        border-radius: 8px !important;
+        margin: 1rem 0 !important;
+        text-align: center !important;
+        font-weight: bold !important;
+        font-size: 1.2rem !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .prediction-high {
+        background-color: #48bb78 !important;  /* Green */
+    }
+
+    .prediction-medium {
+        background-color: #ed8936 !important;  /* Orange */
+    }
+
+    .prediction-low {
+        background-color: #e53e3e !important;  /* Red */
+    }
+
+    /* Section Headers */
+    .section-header {
+        color: #1a1a1a !important;
+        font-size: 1.3rem !important;
+        font-weight: 600 !important;
+        margin: 1.5rem 0 1rem 0 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -694,7 +687,7 @@ def display_probability_bars(home_prob, draw_prob, away_prob, home_team, away_te
     # Create a container with white background
     with st.container():
         st.markdown("""
-            <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 1rem 0;">
+            <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 1rem 0;">
             </div>
         """, unsafe_allow_html=True)
         
@@ -760,8 +753,129 @@ def display_probability_bars(home_prob, draw_prob, away_prob, home_team, away_te
             </div>
         """, unsafe_allow_html=True)
 
+def display_match_odds(match_data):
+    """Display FootyStats match odds in an organized box."""
+    # Display match stats
+    stats_html = f"""
+    <div style="background-color: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; margin: 20px 0;">
+        <h3 style="text-align: center; color: #1f2937; margin-bottom: 20px;">Match Stats</h3>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div style="background-color: #f3f4f6; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #e5e7eb;">
+                <div style="color: #4b5563; font-size: 0.9rem; margin-bottom: 5px;">PPG (Home)</div>
+                <div style="color: #1f2937; font-size: 1.2rem; font-weight: 600;">{match_data.get('home_ppg', 'N/A')}</div>
+            </div>
+            <div style="background-color: #f3f4f6; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #e5e7eb;">
+                <div style="color: #4b5563; font-size: 0.9rem; margin-bottom: 5px;">xG (Pre-match)</div>
+                <div style="color: #1f2937; font-size: 1.2rem; font-weight: 600;">{match_data.get('total_xg_prematch', 'N/A')}</div>
+            </div>
+            <div style="background-color: #f3f4f6; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #e5e7eb;">
+                <div style="color: #4b5563; font-size: 0.9rem; margin-bottom: 5px;">PPG (Away)</div>
+                <div style="color: #1f2937; font-size: 1.2rem; font-weight: 600;">{match_data.get('away_ppg', 'N/A')}</div>
+            </div>
+        </div>
+    </div>
+    """
+    st.markdown(stats_html, unsafe_allow_html=True)
+
+    # Display odds title
+    st.markdown('<h3 style="text-align: center; color: #1f2937; margin: 30px 0; font-size: 1.5rem;">FootyStats Match Odds</h3>', unsafe_allow_html=True)
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown('<div style="color: #1f2937; font-size: 1.2rem; font-weight: 600; margin-bottom: 15px;">Match Result & Goals</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"><span style="color: #4b5563; font-weight: 500;">Over 2.5:</span> {match_data.get("odds_ft_over25", "N/A")}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"><span style="color: #4b5563; font-weight: 500;">BTTS Yes:</span> {match_data.get("odds_btts_yes", "N/A")}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"><span style="color: #4b5563; font-weight: 500;">Double Chance 1X:</span> {match_data.get("odds_doublechance_1x", "N/A")}</div>', unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown('<div style="color: #1f2937; font-size: 1.2rem; font-weight: 600; margin-bottom: 15px;">First Half Markets</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"><span style="color: #4b5563; font-weight: 500;">1H Over 0.5:</span> {match_data.get("odds_1st_half_over05", "N/A")}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"><span style="color: #4b5563; font-weight: 500;">1H Result 1:</span> {match_data.get("odds_1st_half_result_1", "N/A")}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"><span style="color: #4b5563; font-weight: 500;">Team Score First:</span> {match_data.get("odds_team_to_score_first_1", "N/A")}</div>', unsafe_allow_html=True)
+
+    # Additional odds in expandable sections
+    with st.expander("📊 More Betting Markets"):
+        col3, col4 = st.columns(2)
+        
+        with col3:
+            st.markdown('<div style="color: #1f2937; font-size: 1.2rem; font-weight: 600; margin-bottom: 15px;">Match Result</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb;"><span style="color: #4b5563; font-weight: 500;">Home Win:</span> {match_data.get("odds_ft_1", "N/A")}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb;"><span style="color: #4b5563; font-weight: 500;">Draw:</span> {match_data.get("odds_ft_x", "N/A")}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb;"><span style="color: #4b5563; font-weight: 500;">Away Win:</span> {match_data.get("odds_ft_2", "N/A")}</div>', unsafe_allow_html=True)
+            
+            st.markdown('<div style="color: #1f2937; font-size: 1.2rem; font-weight: 600; margin: 20px 0 15px;">Win to Nil</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb;"><span style="color: #4b5563; font-weight: 500;">Home Win to Nil:</span> {match_data.get("odds_win_to_nil_1", "N/A")}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb;"><span style="color: #4b5563; font-weight: 500;">Away Win to Nil:</span> {match_data.get("odds_win_to_nil_2", "N/A")}</div>', unsafe_allow_html=True)
+        
+        with col4:
+            st.markdown('<div style="color: #1f2937; font-size: 1.2rem; font-weight: 600; margin-bottom: 15px;">Over/Under Goals</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb;"><span style="color: #4b5563; font-weight: 500;">Over 1.5:</span> {match_data.get("odds_ft_over15", "N/A")}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb;"><span style="color: #4b5563; font-weight: 500;">Over 3.5:</span> {match_data.get("odds_ft_over35", "N/A")}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb;"><span style="color: #4b5563; font-weight: 500;">Under 2.5:</span> {match_data.get("odds_ft_under25", "N/A")}</div>', unsafe_allow_html=True)
+            
+            st.markdown('<div style="color: #1f2937; font-size: 1.2rem; font-weight: 600; margin: 20px 0 15px;">Double Chance</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb;"><span style="color: #4b5563; font-weight: 500;">1X:</span> {match_data.get("odds_doublechance_1x", "N/A")}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb;"><span style="color: #4b5563; font-weight: 500;">12:</span> {match_data.get("odds_doublechance_12", "N/A")}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="color: #374151; font-size: 1.1rem; background-color: #f3f4f6; padding: 12px 15px; border-radius: 8px; margin: 5px 0; border: 1px solid #e5e7eb;"><span style="color: #4b5563; font-weight: 500;">X2:</span> {match_data.get("odds_doublechance_x2", "N/A")}</div>', unsafe_allow_html=True)
+
+def add_back_to_top_button():
+    """Add a floating back to top button."""
+    st.markdown("""
+        <style>
+            .back-to-top {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                background-color: #1f2937;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                text-decoration: none;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+                z-index: 999;
+                transition: background-color 0.3s;
+                cursor: pointer;
+                font-weight: 500;
+            }
+            .back-to-top:hover {
+                background-color: #374151;
+            }
+            .prediction-separator {
+                border: none;
+                height: 2px;
+                background: linear-gradient(to right, transparent, #e5e7eb, transparent);
+                margin: 30px 0;
+            }
+        </style>
+        
+        <a href="#top" class="back-to-top">↑ Back to Top</a>
+        
+        <script>
+            // Smooth scroll to top
+            document.querySelector('.back-to-top').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            });
+            
+            // Show/hide button based on scroll position
+            window.onscroll = function() {
+                var button = document.querySelector('.back-to-top');
+                if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+                    button.style.display = "block";
+                } else {
+                    button.style.display = "none";
+                }
+            };
+        </script>
+    """, unsafe_allow_html=True)
+
 def show_main_app():
+    st.markdown('<div id="top"></div>', unsafe_allow_html=True)  # Add anchor for back to top
     st.markdown("<h1>⚽ Football Match Predictor ⚽</h1>", unsafe_allow_html=True)
+    
+    # Add the back to top button
+    add_back_to_top_button()
     
     # Logout button at the top
     col1, col2, col3 = st.columns([3,2,3])
@@ -787,7 +901,7 @@ def show_main_app():
                 matches = get_matches_for_days(start_date, end_date)
             
             if matches:
-                st.markdown("<h3>Match Predictions</h3>", unsafe_allow_html=True)
+                st.markdown('<div class="section-header">Match Predictions</div>', unsafe_allow_html=True)
                 
                 for match in matches:
                     with st.container():
@@ -820,94 +934,31 @@ def show_main_app():
                                 winner_prob = draw_prob
                             
                             # Display winner prediction with confidence level
-                            display_prediction(f"Most Likely Outcome: {winner}", winner_prob)
+                            st.markdown(f'<div class="prediction-text">Most Likely Outcome: {winner}</div>', unsafe_allow_html=True)
+                            display_prediction(winner, winner_prob)
+                            
+                            # Display probability bars header
+                            st.markdown('<div class="prediction-text">Match Outcome Probabilities</div>', unsafe_allow_html=True)
                             
                             # Display probability bars
                             display_probability_bars(home_prob, draw_prob, away_prob, home_team, away_team)
                             
-                            # Display odds
-                            st.markdown("<h4>Match Odds</h4>", unsafe_allow_html=True)
-                            odds_col1, odds_col2 = st.columns(2)
-                            
-                            with odds_col1:
-                                over_under_odds = calculate_over_under_odds(match)
-                                st.markdown(f"""
-                                <div class="odds-container">
-                                    <h4>Over/Under 2.5 Goals</h4>
-                                    <div class="odds-row">
-                                        <span class="odds-label">Over</span>
-                                        <span class="odds-value">{over_under_odds['over']:.2f}</span>
-                                    </div>
-                                    <div class="odds-row">
-                                        <span class="odds-label">Under</span>
-                                        <span class="odds-value">{over_under_odds['under']:.2f}</span>
-                                    </div>
-                                </div>
-                                """, unsafe_allow_html=True)
-                            
-                            with odds_col2:
-                                btts_odds = calculate_btts_odds(match)
-                                st.markdown(f"""
-                                <div class="odds-container">
-                                    <h4>Both Teams to Score</h4>
-                                    <div class="odds-row">
-                                        <span class="odds-label">Yes</span>
-                                        <span class="odds-value">{btts_odds['yes']:.2f}</span>
-                                    </div>
-                                    <div class="odds-row">
-                                        <span class="odds-label">No</span>
-                                        <span class="odds-value">{btts_odds['no']:.2f}</span>
-                                    </div>
-                                </div>
-                                """, unsafe_allow_html=True)
-                            
+                            # Display match odds
+                            st.markdown("---")
+                            display_match_odds(match)
+                        
                         except Exception as e:
                             st.error(f"Error processing match: {str(e)}")
                         
                         st.markdown("</div>", unsafe_allow_html=True)
+                        st.markdown('<div class="prediction-separator"></div>', unsafe_allow_html=True)
             else:
                 st.warning("No matches found for the selected dates. Please try a different date range.")
         else:
             st.error("End date must be after start date")
-
-def calculate_over_under_odds(match_data):
-    """Calculate odds for Over/Under 2.5 goals based on team statistics and form"""
-    # This is a simplified calculation - you might want to use more sophisticated methods
-    home_goals_scored = match_data.get('home_team_goals_scored_avg', 1.5)
-    away_goals_scored = match_data.get('away_team_goals_scored_avg', 1.5)
-    expected_goals = home_goals_scored + away_goals_scored
-    
-    # Convert probability to odds
-    over_prob = 1 / (1 + np.exp(-0.5 * (expected_goals - 2.5)))
-    under_prob = 1 - over_prob
-    
-    # Convert probabilities to odds (adding a small margin)
-    margin = 0.1
-    over_odds = (1 / over_prob) * (1 + margin)
-    under_odds = (1 / under_prob) * (1 + margin)
-    
-    return {'over': over_odds, 'under': under_odds}
-
-def calculate_btts_odds(match_data):
-    """Calculate Both Teams to Score odds based on team statistics"""
-    # This is a simplified calculation - you might want to use more sophisticated methods
-    home_scoring_prob = match_data.get('home_team_scoring_prob', 0.6)
-    away_scoring_prob = match_data.get('away_team_scoring_prob', 0.5)
-    
-    # Probability of both teams scoring
-    btts_prob = home_scoring_prob * away_scoring_prob
-    no_btts_prob = 1 - btts_prob
-    
-    # Convert probabilities to odds (adding a small margin)
-    margin = 0.1
-    yes_odds = (1 / btts_prob) * (1 + margin)
-    no_odds = (1 / no_btts_prob) * (1 + margin)
-    
-    return {'yes': yes_odds, 'no': no_odds}
 
 # Main app logic
 if not st.session_state.logged_in:
     show_login_page()
 else:
     show_main_app()
-
